@@ -1,0 +1,387 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>QClair In-Silico</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+
+  <!-- Favicons -->
+  <link href="{% static 'img/favicon_qc.png' %}" rel="icon">
+  <link href="{% static 'img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+   <!-- Vendor CSS Files -->
+<link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+<link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+
+
+
+
+<!-- Main CSS File -->
+
+<link href="{% static 'css/main_new_dropdown.css' %}" rel="stylesheet">
+
+
+  <!-- =======================================================
+  * Template Name: QClair-DockPro
+  * Template URL: https://bootstrapmade.com/medilab-free-medical-bootstrap-theme/
+  * Updated: Aug 07 2024 with Bootstrap v5.3.3
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="index-page">
+
+  <header id="header" class="header sticky-top">
+
+    <div class="topbar d-flex align-items-center">
+      <div class="container d-flex justify-content-center justify-content-md-between">
+        <div class="contact-info d-flex align-items-center">
+          <i class="bi bi-envelope d-flex align-items-center"><a href="mailto:contact@example.com">info@qclairvoyance.in</a></i>
+          <i class="bi bi-phone d-flex align-items-center ms-4"><span>+91 9100530291</span></i>
+        </div>
+        <div class="social-links d-none d-md-flex align-items-center">
+          <a href="#" class="twitter"><i class="bi bi-twitter-x"></i></a>
+          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        </div>
+      </div>
+    </div><!-- End Top Bar -->
+
+    <div class="branding d-flex align-items-center">
+
+      <div class="container position-relative d-flex align-items-center justify-content-between">
+        <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          <!-- <img src="static/img/logo.png" alt=""> -->
+          <img src="{% static '\img\favicon_qc.png' %}" alt="" style="width: 75px; height: 100px; position: relative; left: -5px;">
+          <!-- Uncomment the line below if you also wish to use an image logo -->
+          
+          <h1 class="sitename" style=" width: 250px;">QClair In-Silico</h1>
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+          <ul>
+            <li><a href="{% url 'home' %}" class="active">Home<br></a></li>
+            <li><a href="#about">About</a></li>
+            <!--
+            <li><a href="#services">Protein-Ligand Interacrtion</a></li>
+            <li><a href="#departments">Protein-Protein Interaction</a></li>
+            <li><a href="#doctors">Drug-Drug INteraction</a></li>
+            -->
+            <!-- 
+            <li><a href='/pl-Interaction'>Protein-Ligand Interacrtion</a></li>
+            <li><a href='/pp-interaction'>Protein-Protein Interaction</a></li>
+            <li><a href='/dd-Interaction'>Drug-Drug INteraction</a></li>
+            -->
+
+            <li><a href='/index-sidebar-pl'>Protein-Ligand Interacrtion</a></li>
+            <li><a href='/index-sidebar-pp'>Protein-Protein Interaction</a></li>
+            <li><a href='/index-sidebar-dd'>Drug-Drug INteraction</a></li>
+            <li><a href='https://qclairvoyance.com/'>NP Database</a></li>
+                   
+            <!--
+            <li><a href="#departments">Protein-Protein Interaction</a></li>
+            <li><a href="#doctors">Drug-Drug INteraction</a></li>
+            -->
+            <li class="dropdown"><a href="#"><span>Tools</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+              <ul>
+                <li class="dropdown"><a href="#"><span>Visualize</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li><a href="/index-mol-str">Molecule Structure</a></li>
+                    <li><a href="/index-prot-str">Protein Structure</a></li>
+                    <li><a href="/index-pdb-read"> Analyze PDB</a></li>
+
+                  </ul>
+                </li>
+                <li class="dropdown"><a href="#"><span>Calulate Descriptor</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+                  <ul>
+                    <li><a href="/index-li-desc">Liagnd Descriptor</a></li>
+                    <li><a href="/index-pro-desc">Protein Descriptor</a></li>
+                  </ul>
+                </li>
+                <li><a href="/index-pdb-read"> Analyze PDB</a></li>
+                <li><a href="#">Links</a></li>
+              </ul>
+            </li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+        <a class="cta-btn d-none d-sm-block" href="#contact"> Conatct for a demo</a>
+
+      </div>
+
+    </div>
+
+  </header>  <main class="main">
+    <section id="about" class="about section">
+      <h2 style="text-align: center;">Calculate Descriptors</h2>
+      
+      <!-- Outer Container for Ligand Descriptor Section -->
+      <div id="ligandDesc" class="content" style="border: 2px solid black; border-radius: 8px; padding: 20px; background-color: #f9f9f9; height: 600px;">
+        
+        <!-- Form for Uploading First Ligand SMILES -->
+        <form id="projectForm" action="{% url 'process_form_li_desc' %}" method="POST" 
+              style="position: absolute; top: 250px; left: 15px; margin-bottom: 20px; width: 600px;">
+          {% csrf_token %}
+          
+          <!-- Outer container with border for the form area -->
+          <div style="border: 2px solid black; border-radius: 8px; padding: 15px; background-color: #f9f9f9;">
+            <!-- Flex container for input field and submit button on one line -->
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div style="flex: 1; border: 1px solid black; border-radius: 5px; padding: 10px; background-color: #fff;">
+                <label for="input1" style="font-weight: bold; display: block; margin-bottom: 5px; font-size: 13px;">
+                  Input Ligand SMILES
+                </label>
+                <input type="text" id="input1" name="input1" placeholder="Enter SMILES" required 
+                       style="width: 100%; padding: 8px; font-size: 13px; border: 1px solid #bbb; border-radius: 4px;">
+              </div>
+              
+              <!-- Submit button -->
+              <button type="submit" 
+                      style="background-color: #007bff; color: #fff; padding: 6px 12px; font-size: 13px; border: none; border-radius: 5px; cursor: pointer; white-space: nowrap;">
+                Submit
+              </button>
+            </div>
+          </div>
+        </form>
+        
+        <!-- Molecular Properties Section -->
+        <div id="MolecularProperties" class="content">
+          <br><br><br><br> <br><br>
+          <h1>Molecular Properties</h1>
+          <p class="text">
+            The features of the Ligand and Protein, derived from the user's input, are displayed below.
+          </p>
+          <br>
+          <div style="display: flex; justify-content: space-between; gap: 20px;">
+            <!-- First Flex Container for Ligand Descriptors Table -->
+            <div style="flex: 1;">
+              <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">
+                Ligand Molecule: {{ input1 }}
+              </h2>
+              <br>
+              <table border="1" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                  <tr>
+                    <th style="border: 1px solid black; text-align: center;">Ligand Descriptor</th>
+                    <th style="border: 1px solid black; text-align: center;">Value</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for name, value in descriptors.items %}
+                    <tr>
+                      <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
+                      <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+    
+  <!-- Contact Section -->
+  <section id="contact" class="contact section">
+
+    <!-- Section Title -->
+    <div class="container section-title" data-aos="fade-up">
+      <h2>Contact</h2>
+      <h4>QClairvoyance Quantum Labs Pvt. Ltd.</h4>
+    </div><!-- End Section Title -->
+
+    <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+      <iframe style="border:0; width: 100%; height: 270px;" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15221.017062902038!2d78.52713523955077!3d17.49537170000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9b002bbc87db%3A0xad520836defcb0dc!2sQclairvoyance%20Quantum%20Labs%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1733215248799!5m2!1sen!2sin"></iframe>
+    </div><!-- End Google Maps -->
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+      <div class="row gy-4">
+
+        <div class="col-lg-4">
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+            <i class="bi bi-geo-alt flex-shrink-0"></i>
+            <div>
+              <h3>Location</h3>
+              <p>191, Hi-Tension Road, Sainikpuri, Hyderabad 400095</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+            <i class="bi bi-telephone flex-shrink-0"></i>
+            <div>
+              <h3>Call Us</h3>
+              <p>+91 91005 30291</p>
+            </div>
+          </div><!-- End Info Item -->
+
+          <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="500">
+            <i class="bi bi-envelope flex-shrink-0"></i>
+            <div>
+              <h3>Email Us</h3>
+              <p>info@qclairvoyance.in</p>
+            </div>
+          </div><!-- End Info Item -->
+
+        </div>
+
+        <div class="col-lg-8">
+          <form action="forms/contact.php" method="post" class="php-email-form" data-aos="fade-up" data-aos-delay="200">
+            <div class="row gy-4">
+
+              <div class="col-md-6">
+                <input type="text" name="name" class="form-control" placeholder="Your Name" required="">
+              </div>
+
+              <div class="col-md-6 ">
+                <input type="email" class="form-control" name="email" placeholder="Your Email" required="">
+              </div>
+
+              <div class="col-md-12">
+                <input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+              </div>
+
+              <div class="col-md-12">
+                <textarea class="form-control" name="message" rows="6" placeholder="Message" required=""></textarea>
+              </div>
+
+              <div class="col-md-12 text-center">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your message has been sent. Thank you!</div>
+
+                <button type="submit">Send Message</button>
+              </div>
+
+            </div>
+          </form>
+        </div><!-- End Contact Form -->
+
+      </div>
+
+    </div>
+
+  </section><!-- /Contact Section -->
+    
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <span class="sitename"> QClairvoyance Quantum Labs </span>
+          </a>
+          <div class="footer-contact pt-3">
+            <p>191, Hi-Tension Road, Sainikpuri</p>
+            <p>Secunderabad, Telangana - 400095</p>
+            <p class="mt-3"><strong>Phone:</strong> <span>+91 9100530291</span></p>
+            <p><strong>Email:</strong> <span>info@qclairvoyance.in</span></p>
+          </div>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>Our Services</h4>
+          <ul>
+            <li><a href="#">Quantum Drug Discovery</a></li>
+            <li><a href="#">Quantum Finance</a></li>
+            <li><a href="#">Quantum Safe VPN</a></li>
+            <li><a href="#">Quantum Safe VC</a></li>
+            <li><a href="#">Roger Quantum Safe Messenger</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-3 footer-links">
+          <h4>QClair In-Silico</h4>
+          <ul>
+            <li><a href="#">Protein-Ligand Interaction</a></li>
+            <li><a href="#">Protein-Protein Interaction</a></li>
+            <li><a href="#">Drug-Drug Interaction</a></li>
+            <li><a href="#">Calculate Descriptors</a></li>
+            <li><a href="#">Visualize Molecules</a></li>
+          </ul>
+        </div>
+
+        
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename"> QClair In-Silico</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed and Developed by <a href="https://qclair.github.io/QClair/index.html.com/">QClairvoyance Quantum Labs</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'vendor/aos/aos.js' %}"></script>
+<script src="{% static 'vendor/glightbox/js/glightbox.min.js' %}"></script>
+<script src="{% static 'vendor/purecounter/purecounter_vanilla.js' %}"></script>
+<script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
+
+<!-- Main JS File -->
+
+<!-- Main JS File -->
+<!--
+<script src="{% static 'js/main.js' %}"></script>
+-->
+<!-- Main JS File -->
+<script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

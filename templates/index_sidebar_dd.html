@@ -1,0 +1,835 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'img/favicon_qc.png' %}" rel="icon">
+
+  <!-- 3D Mol -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.6/3Dmol-min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>      
+<script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script> 
+</head>
+
+<body>
+  
+  <nav>
+    <div class="sidebar-top">
+      <span class="shrink-btn">
+        <i class='bx bx-chevron-left'></i>
+      </span>
+      <a href="{% url 'home' %}">
+        <img src="{% static 'img/favicon_qc.png' %}" class="logo" alt="Home">
+      </a>
+      <h3 class="hide">QClair-DDI</h3>
+    </div>
+
+    <div class="search">
+      <i class='bx bx-search'></i>
+      <input type="text" class="hide" placeholder="Quick Search ...">
+    </div>
+
+    <div class="sidebar-links">
+      <ul>
+        <div class="active-tab"></div>
+        <li class="tooltip-element" data-tooltip="0">
+          <a href="#" class="active" data-active="0" onclick="showContent('Predict')">
+            <div class="icon">
+              <i class='bx bxs-brain'></i>
+              <i class='bx bxs-brain'></i>
+            </div>
+            <span class="link hide">Predict</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="1">
+          <a href="#"  data-active="1" onclick="showContent('QClair-PLI')">
+            <div class="icon">
+              <i class='bx bxs-info-circle'></i>
+              <i class='bx bxs-info-circle'></i>
+            </div>
+            <span class="link hide">QClair-DDI</span>
+          </a>
+        </li>
+        
+        <li class="tooltip-element" data-tooltip="2">
+          <a href="#" data-active="2" onclick="showContent('Ligand Struture Visualization')">
+            <div class="icon">
+              <i class='bx bx-atom'></i>
+              <i class='bx bx-atom'></i>
+            </div>
+            <span class="link hide">Ligand Struture Visualization</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="3">
+          <a href="#" data-active="3" onclick="showContent('Molecular Properties')">
+            <div class="icon">
+              <i class='bx bxs-bar-chart-alt-2'></i>
+              <i class='bx bxs-bar-chart-alt-2'></i>
+            </div>
+            <span class="link hide">Molecular Properties</span>
+          </a>
+        </li>
+        
+
+        <li class="tooltip-element" data-tooltip="4">
+          <a href="#" data-active="4" onclick="showContent('Batch Results')">
+            <div class="icon">
+              <i class='bx bxs-download'></i>
+              <i class='bx bxs-download'></i>
+            </div>
+            <span class="link hide">Batch Results</span>
+          </a>
+        </li>
+
+        <li class="tooltip-element" data-tooltip="5">
+          <a href="#" data-active="5" onclick="showContent('User Data')">
+            <div class="icon">
+              <i class='bx bxs-user-circle'></i>
+              <i class='bx bxs-user-circle'></i>
+            </div>
+            <span class="link hide">{{username}}'s DDI</span>
+          </a>
+        </li>
+      <!-- 
+        <li class="tooltip-element" data-tooltip="5">
+          <a href="#" data-active="5" onclick="showContent('Analysis')">
+            <div class="icon">
+              <i class='bx bx-bar-chart-square'></i>
+              <i class='bx bxs-bar-chart-square'></i>
+            </div>
+            <span class="link hide">Analysis</span>
+          </a>
+        </li>
+
+      -->  
+
+
+        <div class="tooltip">
+          <span class="show">Predict</span>
+          <span>QClair-DDI</span>
+          <span>Protein Structure Visualization</span>
+          <span>Ligand Struture Visualization</span>
+          <span>Molecular Properties</span>
+          <span>Batch Results</span>
+          <span>User Data</span>
+          <!-- 
+          <span>Analysis</span> -->
+        </div>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="#" class="account tooltip-element" data-tooltip="0">
+        <i class='bx bx-user'></i>
+      </a>
+      <div class="admin-user tooltip-element" data-tooltip="1">
+        <div class="admin-profile hide">
+          <a>
+            <img src="{% static 'img/user.png' %}" class="logo" alt="Home">
+          </a>
+          <div class="admin-info">
+            <h4>{{username}}</h4>
+          </div>
+        </div>
+      
+        <a href='{% url 'logout' %}' class="log-out">
+          <i class='bx bx-log-out'></i>
+        </a>
+    
+
+      </div>
+      <div class="tooltip">
+        <span class="show">John Doe</span>
+        <span>Logout</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    
+    <div id="Predict" class="content" style="display:block;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Predict</h1>
+      <p class="text">Give input as Ligand SMILES-I and Ligand SMILES-II.</p>
+      <div style="position: absolute; top: 175px; left: 285px; width: 500px; padding: 5px; border: 1px solid black; border-radius:8px; background-color: #f9f9f9; box-sizing: border-box;">
+      <!-- Form inside Projects Section -->
+      <form id="projectForm_dd" action="{% url 'process_form_dd' %}" method="POST">
+        {% csrf_token %}
+        
+        <!--
+        <div class="form-group">
+            <label for="input1_pl"> First Ligand SMILES</label>
+            <input type="text" id="input1_pl" name="input1_pl" placeholder="Enter First SMILES" required>
+        </div>
+    
+        <div class="form-group">
+            <label for="input2_pl">Second Ligand SMILES</label>
+            <textarea id="input2_pl" name="input2_pl" placeholder="Enter Second SMILES" required></textarea>
+        </div>
+        -->
+        <div style="border: 2px solid black; border-radius: 8px; padding: 15px; width: 400px; background-color: #f9f9f9;">
+          <div style="border: 1px solid black; border-radius: 5px; padding: 10px; margin-bottom: 10px; background-color: #fff;">
+              <label for="input1_dd" style="font-weight: bold; display: block; margin-bottom: 5px;">First Ligand SMILES</label>
+              <input type="text" id="input1_dd" name="input1_dd" placeholder="Enter First SMILES e.g: CCO" required
+                     style="width: 100%; padding: 8px; border: 1px solid #bbb; border-radius: 4px;" value="{{ request.POST.input1_dd }}">
+          </div>
+          
+          <div style="border: 1px solid black; border-radius: 5px; padding: 10px; background-color: #fff;">
+              <label for="input2_dd" style="font-weight: bold; display: block; margin-bottom: 5px;">Second Ligand SMILES</label>
+              <textarea id="input2_dd" name="input2_dd" placeholder="Enter Second SMILES e.g: c1ccccc1" required
+                        style="width: 100%; padding: 8px; border: 1px solid #bbb; border-radius: 4px;">{{ request.POST.input2_dd }}</textarea>
+          </div>
+        </div>
+    
+        
+        
+        <button onclick="validateAndSubmit()" type="button">Submit</button>
+
+
+        
+        <!--
+        <div id="resultContainer" style=" margin-top: 20px; padding: 10px; border: 2px solid black; border-radius: 8px;">
+          <h3>Result1:{{result}}</h3>
+          <p id="resultText"></p>
+        </div>
+        -->
+        
+      
+
+        
+    
+        
+        
+        <div id="resultContainer" style="margin-top: 20px; padding: 10px; border: 2px solid black; border-radius: 8px; display: flex; align-items: center;">
+          <h3 style="margin: 0; padding-right: 10px;">Result: </h3>
+          <div id="resultText" style="border: 1px solid black; padding: 5px 10px; border-radius: 4px; min-width: 100px; background-color: #f9f9f9;">
+              {{ result_dd}}
+          </div>
+        </div>
+        
+      
+        <button type="button" id="clearBtn">Clear</button>
+        <script>
+          document.getElementById("clearBtn").addEventListener("click", function() {
+              document.getElementById("input1_dd").value = "";  // Clear First Ligand SMILES
+              document.getElementById("input2_dd").value = "";  // Clear Second Ligand SMILES
+              document.getElementById("resultText").innerHTML = ""; // Clear the result
+          });
+        </script>
+      
+
+
+
+
+    </form>
+    </div>
+
+    <p class="text" style="position: absolute; top: 140px; right: 200px;">
+      <span style="font-weight: bold; font-size: 16px;">Batch Processing:</span> 
+      Give input as a CSV file which contains pairs of Ligand SMILES.</p>
+  
+
+    <div style="position: absolute; top: 170px; right: 300px; width: 500px; padding: 5px; border: 1px solid black; background-color: #f9f9f9; box-sizing: border-box; border-radius:8px;">
+      
+      <form id="csv_form_dd" action="{% url 'process_form_dd' %}" method="POST" enctype="multipart/form-data"
+            style="position: relative;  width: 400px; height: 95px; border: 1px solid black; border-radius:8px; padding: 20px; background-color:rgb(241, 238, 238);">
+        {% csrf_token %}
+        <input type="file" id="csvfile_dd" name="csv_file_dd" accept=".csv" style="margin-bottom: 5px; width: 100%;">
+        <button type="submit"  onclick="showLoading()" style="padding: 5px 5px; font-size: 14px;">Upload CSV</button>
+        <!-- Hidden field to distinguish the CSV form -->
+        <input type="hidden" name="form_type" value="csv_form">
+      </form>
+
+    </div>  
+    
+    <div style="position: absolute; top: 325px; right: 50px; width: 1000px; height:500px; padding: 5px;">
+      
+      {% if csv_data %}
+        <div id="csv_table" style="
+        position: relative;
+        width: 1000px; /* Fixed width in pixels */
+        height: 500px; /* Fixed height */
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #f8f8f8;
+        border: 1px solid black;
+        border-radius: 8px;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        ">
+          <table border="1" style="
+              width: 960px; /* Fixed width for table */
+              border-collapse: collapse;
+              table-layout: fixed; /* Ensures fixed column widths */
+            ">
+              <thead>
+                  <tr style="background-color: #e0e0e0;">
+                      <th style="width: 330px; text-align: left; padding: 5px;">Ligand_I (SMILES)</th>
+                      <th style="width: 330px; text-align: left; padding: 5px;">Ligand_II (SMILES)</th>
+                      <th style="width: 330px; text-align: left; padding: 5px;">Interaction</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for row in result_2_dd %}
+                  <tr>
+                      <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.ligand }}</td>
+                      <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.protein }}</td>
+                      <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.prediction }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td colspan="3" style="text-align: center; padding: 10px;">No results found.</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+    </div>
+
+    <!-- Download CSV Button -->
+    <div style="position: absolute; top: 525px; right: 450px;">
+            <button type="button" onclick="downloadCSV_2()" style="padding: 8px 16px; font-size: 14px;">Download CSV</button>
+    </div>
+
+    <script>
+      function downloadCSV_2() {
+          var csv = [];
+          var table = document.querySelector("#csv_table table");
+  
+          if (!table) {
+              alert("No table found to download.");
+              return;
+          }
+  
+          var rows = table.querySelectorAll("tr");
+  
+          for (var i = 0; i < rows.length; i++) {
+              var row = [];
+              var cols = rows[i].querySelectorAll("th, td");
+  
+              for (var j = 0; j < cols.length; j++) {
+                  var data = cols[j].innerText.trim().replace(/"/g, '""'); // Trim spaces & escape quotes
+                  row.push('"' + data + '"');
+              }
+  
+              if (row.length > 0) {
+                  csv.push(row.join(","));
+              }
+          }
+  
+          if (csv.length === 0) {
+              alert("No data found in the table.");
+              return;
+          }
+  
+          var csv_string = csv.join("\n");
+          var filename = "downloaded_prediction.csv";
+          var blob = new Blob([csv_string], { type: "text/csv;charset=utf-8;" });
+  
+          if (navigator.msSaveBlob) {
+              navigator.msSaveBlob(blob, filename);
+          } else {
+              var link = document.createElement("a");
+              var url = URL.createObjectURL(blob);
+              link.href = url;
+              link.download = filename;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+          }
+      }
+    </script>
+  
+      
+
+    {% else %}
+      <div id="csv_table" style="position: absolute; top: 25px; right: 170px; width: 400px; padding: 15px; ">
+        <p>Upload the CSV..</p>
+      </div>
+    {% endif %}
+
+  </div>
+
+
+
+
+          <!-- Loading Spinner -->
+    <div id="loadingSpinner" style="
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 500px;
+    left: 1350px;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #333;
+    text-align: center;">
+    <div class="spinner"></div>
+    <p>Processing CSV data...</p>
+    </div>
+
+
+    <div id="loadingSpinner_2" style="
+    display: none; /* Initially hidden */
+    position: absolute;
+    top: 450px;
+    left: 950px;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #333;
+    text-align: center;">
+    <div class="spinner"></div>
+    <p>Processing User Input...</p>
+    </div>
+
+    
+    <!-- Style for Spinner -->
+    <style>
+    .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border-left-color: #09f;
+        animation: spin 1s linear infinite;
+        margin: auto;
+    }
+
+    @keyframes spin {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+    </style>
+
+    <!-- Show Spinner on Upload -->
+    <script>
+    function showLoading() {
+        // Hide CSV Table (Reset Data)
+        document.getElementById("csv_table").innerHTML = "<p>Loading...</p>";
+
+        document.getElementById("loadingSpinner").style.display = "block";
+    }
+    </script>
+  <!--
+  <script>
+    function showLoading_2() {
+      var input1 = document.getElementById("input1_dd").value.trim();
+      var input2 = document.getElementById("input2_dd").value.trim();
+  
+      if ((input1 !== "" ) || ( input2 !== ""))  {
+          document.getElementById("loadingSpinner_2").style.display = "block";
+      } else {
+          alert("Please fill in both inputs before proceeding.");
+      }
+    }
+  </script>
+  -->
+
+  <script>
+    // Restore saved values from localStorage when the page loads
+    window.onload = function() {
+        const savedInput1 = localStorage.getItem('input1_dd');
+        const savedInput2 = localStorage.getItem('input2_dd');
+
+        if (savedInput1) document.getElementById('input1_dd').value = savedInput1;
+        if (savedInput2) document.getElementById('input2_dd').value = savedInput2;
+    };
+
+    async function validateAndSubmit() {
+        const input1 = document.getElementById("input1_dd").value.trim();
+        const input2 = document.getElementById("input2_dd").value.trim();
+
+        if (!input1 || !input2) {
+            alert("Please enter both SMILES strings.");
+            return;
+        }
+
+        // Save values for future page loads
+        localStorage.setItem('input1_dd', input1);
+        localStorage.setItem('input2_dd', input2);
+
+        try {
+            // Validate First SMILES
+            const response1 = await fetch("{% url 'validate_smiles' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({ smiles: input1 })
+            });
+
+            const result1 = await response1.json();
+
+            if (!result1.valid) {
+                alert("First SMILES is invalid. Please check your input.");
+                return;
+            }
+
+            // Validate Second SMILES
+            const response2 = await fetch("{% url 'validate_smiles' %}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({ smiles: input2 })
+            });
+
+            const result2 = await response2.json();
+
+            if (!result2.valid) {
+                alert("Second SMILES is invalid. Please check your input.");
+                return;
+            }
+
+            // Both valid: show spinner and submit form
+            document.getElementById("loadingSpinner_2").style.display = "block";
+            document.getElementById("projectForm_dd").submit();
+
+        } catch (error) {
+            console.error("Validation error:", error);
+            alert("Could not validate SMILES. Please try again.");
+        }
+    }
+  </script>
+
+
+  </div>
+
+
+  
+
+  <div id="QClair-PLI" class="content" style="display:none;">
+    <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+    </br>
+    </br>
+    <div style="
+    position: relative; 
+    background-image: url('{% static "img/DD_bg.jpeg" %}'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 800px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: top; 
+    text-align: left;
+    ">
+ <!-- Overlay for better text visibility -->
+    <div style="
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-color: rgba(223, 231, 231, 0.5); 
+        z-index: 1;
+        "></div>
+
+        <!-- Text content -->
+    <p style="
+        position: relative; 
+        z-index: 10; 
+        color: rgba(0, 0, 0, 0.7); 
+        font-size: 18px; 
+        font-weight: bold; 
+        margin: 0; 
+        padding: 20px; 
+        text-shadow: 1px 1px 5px rgba(229, 241, 241, 0.7);
+    ">
+    QClair-DrugPro Affinity Predictor designed to forecast potential interactions between two 
+    or more drugs. By analyzing drug properties, metabolic pathways, and pharmacological data, 
+    these predictors identify how one drug may alter the effectiveness or safety of another. 
+    Utilizing techniques like machine learning and molecular modeling, DDI predictors enhance 
+    drug development and clinical decision-making by helping to prevent adverse reactions, 
+    optimize drug combinations, and ensure safer, more effective therapies.
+    </p>
+  </div>
+  </div>
+
+
+    <div id="Ligand Struture Visualization" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Visualize Ligand</h1>
+      <p>Visualization of Ligands 2D and 3D structure.</p>
+          </br>
+          <!-- First set for Ligand-1 Visualizations -->
+<div style="display: flex; justify-content: center; gap: 10px; align-items: center; border: 2px solid #000; padding: 10px; border-radius: 8px;">
+  <!-- Ligand-1 (2D) Visualization -->
+  <div style="flex: 1.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid #000; padding: 10px; border-radius: 5px;">
+    <h2 style="width: 500px; margin: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      Ligand-1 (2D) ({{ input1 }}) :
+    </h2>
+    {{ smiles_visualization_1|safe }}
+  </div>
+  <!-- Ligand-1 (3D) Visualization -->
+  <div style="flex: 2.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid #000; padding: 10px; border-radius: 5px;">
+    <h2 style="width: 500px; margin: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+      Ligand-1 (3D) ({{ input1 }}) :
+    </h2>
+    {% if smiles_3D_visualization_1 %}
+        {{ smiles_3D_visualization_1|safe }}
+    {% else %}
+        <p>No Ligand-1 ({{ input1 }}) 3D visualization available.</p>
+    {% endif %}
+  </div>
+</div>
+
+<br>
+
+  <!-- Second set for Ligand-2 Visualizations -->
+  <div style="display: flex; justify-content: center; gap: 10px; align-items: center; border: 2px solid #000; padding: 10px; border-radius: 8px;">
+    <!-- Ligand-2 (2D) Visualization -->
+    <div style="flex: 1.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid #000; padding: 10px; border-radius: 5px;">
+      <h2 style="width: 500px; margin: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        Ligand-2 (2D) ({{ input2 }}) :
+      </h2>
+      {{ smiles_visualization_2|safe }}
+    </div>
+    <!-- Ligand-2 (3D) Visualization -->
+    <div style="flex: 2.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; border: 1px solid #000; padding: 10px; border-radius: 5px;">
+      <h2 style="width: 500px; margin: auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+        Ligand-2 (3D) ({{ input2 }}) :
+      </h2>
+      {% if smiles_3D_visualization_2 %}
+          {{ smiles_3D_visualization_2|safe }}
+      {% else %}
+          <p>No Ligand-2 ({{ input2 }}) visualization available.</p>
+      {% endif %}
+    </div>
+  </div>
+
+    </div>
+
+    
+
+    <div id="Batch Results" class="content" style="display:none;" >
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      <div style="position: absolute; top: 75px; left: 260px; width: 1000px; height:700px; padding: 5px;">
+        
+        {% if csv_data %}
+  
+          <div id="csv_table" style="
+          position: relative;
+          width: 1500px; /* Fixed width in pixels */
+          height: 700px; /* Fixed height */
+          overflow-y: auto;
+          padding: 10px;
+          background-color: #f8f8f8;
+          border: 1px solid black;
+          border-radius: 8px;
+          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+          ">
+          <table border="1" style="
+              width: 960px; /* Fixed width for table */
+              border-collapse: collapse;
+              table-layout: fixed; /* Ensures fixed column widths */
+            ">
+              <thead>
+                  <tr style="background-color: #e0e0e0;">
+                      <th style="width: 490px; text-align: left; padding: 5px;">Ligand (SMILES)</th>
+                      <th style="width: 490px; text-align: left; padding: 5px;">Protein Sequence</th>
+                      <th style="width: 490px; text-align: left; padding: 5px;">Predicted_Ki(nM)</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for row in result_2_dd %}
+                  <tr>
+                      <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.ligand }}</td>
+                      <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.protein }}</td>
+                      <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.prediction }}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td colspan="3" style="text-align: center; padding: 10px;">No results found.</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+    
+          <!-- Download CSV Button -->
+          <div style="position: absolute; top: 725px; left: 15px;">
+              <button type="button" onclick="downloadCSV()" style="padding: 8px 16px; font-size: 14px;">Download CSV</button>
+          </div>
+  
+        
+  
+      
+  
+          <script>
+            function downloadCSV() {
+                var csv = [];
+                var table = document.querySelector("#csv_table table");
+        
+                if (!table) {
+                    alert("No table found to download.");
+                    return;
+                }
+        
+                var rows = table.querySelectorAll("tr");
+        
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [];
+                    var cols = rows[i].querySelectorAll("th, td");
+        
+                    for (var j = 0; j < cols.length; j++) {
+                        var data = cols[j].innerText.trim().replace(/"/g, '""'); // Trim spaces & escape quotes
+                        row.push('"' + data + '"');
+                    }
+        
+                    if (row.length > 0) {
+                        csv.push(row.join(","));
+                    }
+                }
+        
+                if (csv.length === 0) {
+                    alert("No data found in the table.");
+                    return;
+                }
+        
+                var csv_string = csv.join("\n");
+                var filename = "downloaded_prediction.csv";
+                var blob = new Blob([csv_string], { type: "text/csv;charset=utf-8;" });
+        
+                if (navigator.msSaveBlob) {
+                    navigator.msSaveBlob(blob, filename);
+                } else {
+                    var link = document.createElement("a");
+                    var url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+          </script>
+        
+          
+  
+        {% else %}
+          <div style="position: absolute; top: 25px; right: 125px; width: 400px; padding: 15px; ">
+            <p>Upload the CSV..</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+     
+
+    <div id="User Data" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      <br>
+      <br>
+      <h1>User Interaction Results</h1>
+    
+      {% if data %}
+      <div style="position: absolute; margin-top: 20px; margin-left: 275px; width: 1000px; max-height: 650px; overflow-y: auto; border: 1px solid black;">
+          <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+              <thead>
+                  <tr>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Input 1</th>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Input 2</th>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Result</th>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for entry in data %}
+                      <tr>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.input1_user }}</td>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.input2_user }}</td>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.result_user }}</td>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.timestamp_user }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+      {% else %}
+          <p style="text-align: center; font-size: 1.2em; color: #888;">No interaction results found.</p>
+      {% endif %}
+    </div>
+
+    
+
+
+    <div id="Molecular Properties" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Molecular Properties</h1>
+      <p class="text">The features of the Ligand-1 and Ligand-2, derived from the user's input, are displayed below.</p>
+      </br>
+          <div style="display: flex; justify-content: space-between; gap: 20px;">
+            <!-- First Flex Container for Ligand Descriptors Table -->
+            
+            <div style="flex: 1;">
+                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Ligand Molecule-1: {{input1}}</h2>
+                </br>
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black; text-align: center;">Ligand Descriptor-1 </th>
+                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, value in descriptors_1.items %}
+                            <tr>
+                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
+                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+            <!-- Second Flex Container for Protein Properties Table -->
+            <div style="flex: 1;">
+                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Ligand Molecule-2: {{input2}}</h2>
+                </br>
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black; text-align: center;">Ligand Descriptor-2 </th>
+                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, value in descriptors_2.items %}
+                            <tr>
+                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
+                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+    </div>
+
+    <p class="copyright">
+      &copy; 2025 - <span>QClairvoyance Quantum Labs Pvt. Ltd</span> All Rights Reserved.
+    </p>
+  </main>
+
+  <script src="{% static 'js/app_dd_new.js'%}"></script>
+  <script src="{% static 'js/3D_viewer.js'%}"></script>
+</body>
+
+</html>

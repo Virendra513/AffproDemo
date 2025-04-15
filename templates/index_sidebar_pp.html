@@ -1,0 +1,1091 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="{% static 'img/favicon_qc.png' %}" rel="icon">
+  <title>Sidebar Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  <!-- 3D Mol -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.6/3Dmol-min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>      
+<script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script> 
+
+<script src="https://cdn.jsdelivr.net/npm/ngl@latest/dist/ngl.js"></script>
+
+
+<style>
+  /* Ensure the container has explicit dimensions */
+  #viewport {
+    width: 800px;
+    height: 275px;
+    border: 1px solid #ccc;
+    position: absolute; /* This enables positioning using top/right */
+    top: 205px;
+    right: 15px;
+  }
+
+  #viewport_2 {
+    width: 800px;
+    height: 275px;
+    border: 1px solid #ccc;
+    position: absolute; /* This enables positioning using top/right */
+    top: 580px;
+    right: 15px;
+  }
+</style>
+
+<style>
+  table {
+      width: 100%;
+      border-collapse: collapse;
+  }
+  table, th, td {
+      border: 1px solid black;
+  }
+  th, td {
+      padding: 8px;
+      text-align: left;
+  }
+  th {
+      background-color: #f2f2f2;
+  }
+</style>
+
+
+</head>
+
+<body>
+  <nav>
+    <div class="sidebar-top">
+      <span class="shrink-btn">
+        <i class='bx bx-chevron-left'></i>
+      </span>
+      <a href="{% url 'home' %}">
+        <img src="{% static 'img/favicon_qc.png' %}" class="logo" alt="Home">
+      </a>
+      <h3 class="hide">QClair-PPI</h3>
+    </div>
+
+    <div class="search">
+      <i class='bx bx-search'></i>
+      <input type="text" class="hide" placeholder="Quick Search ...">
+    </div>
+
+    <div class="sidebar-links">
+      <ul>
+        <div class="active-tab"></div>
+        <li class="tooltip-element" data-tooltip="0">
+          <a href="#" class="active" data-active="0" onclick="showContent('Predict')">
+            <div class="icon">
+              <i class='bx bxs-brain'></i>
+              <i class='bx bxs-brain'></i>
+            </div>
+            <span class="link hide">Predict</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="1">
+          <a href="#"  data-active="1" onclick="showContent('QClair-PPI')">
+            <div class="icon">
+              <i class='bx bxs-info-circle'></i>
+              <i class='bx bxs-info-circle'></i>
+            </div>
+            <span class="link hide">QClair-PPI</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="2">
+          <a href="#" data-active="2" onclick="showContent('Protein Structure Visualization')">
+            <div class="icon">
+              <i class='bx bx-dna'></i>
+              <i class='bx bx-dna'></i>
+            </div>
+            <span class="link hide">Protein Structure Visualization</span>
+          </a>
+        </li>
+        
+        <li class="tooltip-element" data-tooltip="3">
+          <a href="#" data-active="3" onclick="showContent('Molecular Properties')">
+            <div class="icon">
+              <i class='bx bxs-bar-chart-alt-2'></i>
+              <i class='bx bxs-bar-chart-alt-2'></i>
+            </div>
+            <span class="link hide">Molecular Properties</span>
+          </a>
+        </li>
+
+
+        <li class="tooltip-element" data-tooltip="4">
+          <a href="#" data-active="4" onclick="showContent('PDB-1 Content')">
+            <div class="icon">
+              <i class='bx bxs-file'></i>
+              <i class='bx bxs-file'></i>
+            </div>
+            <span class="link hide">PDB-1 Content</span>
+          </a>
+        </li>
+
+
+        <li class="tooltip-element" data-tooltip="5">
+          <a href="#" data-active="5" onclick="showContent('PDB-2 Content')">
+            <div class="icon">
+              <i class='bx bxs-file'></i>
+              <i class='bx bxs-file'></i>
+            </div>
+            <span class="link hide">PDB-2 Content</span>
+          </a>
+        </li>
+
+        <li class="tooltip-element" data-tooltip="6">
+          <a href="#" data-active="6" onclick="showContent('Batch Results')">
+            <div class="icon">
+              <i class='bx bxs-download'></i>
+              <i class='bx bxs-download'></i>
+            </div>
+            <span class="link hide">Batch Results</span>
+          </a>
+        </li>
+
+        <li class="tooltip-element" data-tooltip="7">
+          <a href="#" data-active="7" onclick="showContent('User Data')">
+            <div class="icon">
+              <i class='bx bxs-user-circle'></i>
+              <i class='bx bxs-user-circle'></i>
+            </div>
+            <span class="link hide">{{username}}'s PPI</span>
+          </a>
+        </li>
+
+
+
+
+        <div class="tooltip">
+          <span class="show">Predict</span>
+          <span>QClair-PPI</span>
+          <span>Protein Structure Visualization</span>
+          <span>Molecular Properties</span>
+          <span>PDB-1 Content</span>
+          <span>PDB-2 Content</span>
+          <span>Batch Results</span>
+          <span>User Data</span>
+        </div>
+      </ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="#" class="account tooltip-element" data-tooltip="0">
+        <i class='bx bx-user'></i>
+      </a>
+      <div class="admin-user tooltip-element" data-tooltip="1">
+        <div class="admin-profile hide">
+            <a href="{% url 'home' %}">
+                <img src="{% static 'img/user.png' %}" class="logo" alt="Home">
+            </a>
+          <div class="admin-info">
+            <h4>{{username}}</h4>
+          </div>
+        </div>
+        
+        <a href='{% url 'logout' %}' class="log-out">
+          <i class='bx bx-log-out'></i>
+        </a>
+        
+      </div>
+      <div class="tooltip">
+        <span class="show">John Doe</span>
+        <span>Logout</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    
+    <div id="Predict" class="content" style="display:block;">
+      <br>
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      <h1 style="margin-top: 10px;">Predict</h1>
+      <p class="text">Give input as Protein Sequence-I / PDB file-I and Protein Sequence-II / PDB File-II  </p>
+      
+      <div style="position: absolute; top: 165px; left: 285px; width: 500px; padding: 2px; border: 1px solid black; border-radius:8px; background-color: #f9f9f9; box-sizing: border-box;">
+      <!-- Form inside Projects Section -->
+      <form id="projectForm_pp" action="{% url 'process_form_pp' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="outer-container" style="border: 1px solid black; padding: 5px;">
+          <!-- Protein Sequence-1 Section -->
+          <div class="section" style="padding-bottom: 10px; border-bottom: 1px solid #ccc; margin-bottom: 5px;"> 
+            <label for="input1_pp" style="font-size:18px; font-weight:bold;">Protein Sequence-I:</label>
+            <input type="text" id="input1_pp" name="input1_pp" placeholder="Enter Protein Sequence-I e.g: AAAAA" style="width: 100%; font-size: 16px; padding: 8px;" value="{{ request.POST.input1_pp }}">
+          </div>
+          
+          <!-- OR Section -->
+          <div class="section" style="padding-bottom: 5px; border-bottom: 1px solid #ccc; margin-bottom: 5px; text-align: center;">
+            <p style="margin: 0;">OR</p>
+          </div>
+          
+          <!-- Upload PDB File Section -->
+          <div class="section">
+            <label for="input3_pp" style="font-size:18px; font-weight:bold;">Upload PDB File-I:</label>
+            <input type="file" id="input3_pp" name="input3_pp" accept=".pdb">
+          </div>
+        </div>
+        
+
+
+        <div class="outer-container" style="border: 1px solid black; padding: 5px;">
+          <!-- Protein Sequence-1 Section -->
+          <div class="section" style="padding-bottom: 5px; border-bottom: 1px solid #ccc; margin-bottom: 10px;"> 
+            <label for="input2_pp" style="font-size:18px; font-weight:bold;">Protein Sequence-II:</label>
+            <input type="text" id="input2_pp" name="input2_pp" placeholder="Enter Protein Sequence-II e.g: ACDEG " style="width: 100%; font-size: 16px; padding: 8px;" value="{{ request.POST.input2_pp }}">
+          </div>
+          
+          <!-- OR Section -->
+          <div class="section" style="padding-bottom: 5px; border-bottom: 1px solid black; margin-bottom: 5px; text-align: center;">
+            <p style="margin: 0;">OR</p>
+          </div>
+          
+          <!-- Upload PDB File Section -->
+          <div class="section">
+            <label for="input4_pp" style="font-size:18px; font-weight:bold;">Upload PDB File:</label>
+            <input type="file" id="input4_pp" name="input4_pp" accept=".pdb">
+          </div>
+        </div>
+        
+        <button type="button" onclick="handleFormSubmission(event)">Submit</button>
+
+
+        <!--
+        <button onclick="showLoading_2()" type="submit">Submit</button>
+        -->
+
+        <div id="resultContainer" style="margin-top: 20px; padding: 10px; border: 1px solid black;">
+          <h3>Result:</h3>
+          <div id="resultText" style="padding: 10px; background-color: #f0f0f0; border: 1px solid #ccc;">
+            {{ result_pp }}
+          </div>
+        </div>
+        <button type="button" id="clearBtn">Clear</button>
+
+        <script>
+          document.getElementById("clearBtn").addEventListener("click", function() {
+              document.getElementById("input1_pp").value = "";  // Clear First Ligand SMILES
+              document.getElementById("input2_pp").value = "";  // Clear Second Ligand SMILES
+              document.getElementById("resultText").innerHTML = ""; // Clear the result
+          });
+        </script>
+        
+      </form>
+      </div>
+
+      <p class="text" style="position: absolute; top: 130px; right: 200px;">
+        <span style="font-weight: bold; font-size: 16px;">Batch Processing:</span> 
+        Give input as a CSV file which contains pairs of Protein Sequences.</p>
+    
+
+      <div style="position: absolute; top: 165px; right: 300px; width: 500px; padding: 5px; border: 1px solid black; background-color: #f9f9f9; box-sizing: border-box; border-radius:8px;">
+        
+        <form id="csv_form_pp" action="{% url 'process_form_pp' %}" method="POST" enctype="multipart/form-data"
+              style="position: relative;  width: 400px; height: 95px; border: 1px solid black; border-radius:8px; padding: 20px; background-color:rgb(241, 238, 238);">
+          {% csrf_token %}
+          <input type="file" id="csvfile_pp" name="csv_file_pp" accept=".csv" style="margin-bottom: 5px; width: 100%;">
+          <button type="submit"  onclick="showLoading()" style="padding: 5px 5px; font-size: 14px;">Upload CSV</button>
+          <!-- Hidden field to distinguish the CSV form -->
+          <input type="hidden" name="form_type" value="csv_form">
+        </form>
+
+      </div>  
+      
+      <div style="position: absolute; top: 325px; right: 50px; width: 1000px; height:500px; padding: 5px;">
+        
+        {% if csv_data %}
+          <div id="csv_table" style="
+          position: relative;
+          width: 1000px; /* Fixed width in pixels */
+          height: 500px; /* Fixed height */
+          overflow-y: auto;
+          padding: 10px;
+          background-color: #f8f8f8;
+          border: 1px solid black;
+          border-radius: 8px;
+          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+          ">
+            <table border="1" style="
+                width: 960px; /* Fixed width for table */
+                border-collapse: collapse;
+                table-layout: fixed; /* Ensures fixed column widths */
+              ">
+                <thead>
+                    <tr style="background-color: #e0e0e0;">
+                        <th style="width: 330px; text-align: left; padding: 5px;">Protein_1</th>
+                        <th style="width: 330px; text-align: left; padding: 5px;">Protein_2</th>
+                        <th style="width: 330px; text-align: left; padding: 5px;">Interaction</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in result_pp_2 %}
+                    <tr>
+                        <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.Protein_1 }}</td>
+                        <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.Protein_2}}</td>
+                        <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.Interaction }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3" style="text-align: center; padding: 10px;">No results found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+      </div>
+
+      <!-- Download CSV Button -->
+      <div style="position: absolute; top: 525px; right: 450px;">
+              <button type="button" onclick="downloadCSV_2_pp()" style="padding: 8px 16px; font-size: 14px;">Download CSV</button>
+      </div>
+
+      <script>
+        function downloadCSV_2_pp() {
+            var csv = [];
+            var table = document.querySelector("#csv_table table");
+    
+            if (!table) {
+                alert("No table found to download.");
+                return;
+            }
+    
+            var rows = table.querySelectorAll("tr");
+    
+            for (var i = 0; i < rows.length; i++) {
+                var row = [];
+                var cols = rows[i].querySelectorAll("th, td");
+    
+                for (var j = 0; j < cols.length; j++) {
+                    var data = cols[j].innerText.trim().replace(/"/g, '""'); // Trim spaces & escape quotes
+                    row.push('"' + data + '"');
+                }
+    
+                if (row.length > 0) {
+                    csv.push(row.join(","));
+                }
+            }
+    
+            if (csv.length === 0) {
+                alert("No data found in the table.");
+                return;
+            }
+    
+            var csv_string = csv.join("\n");
+            var filename = "downloaded_PPI_prediction.csv";
+            var blob = new Blob([csv_string], { type: "text/csv;charset=utf-8;" });
+    
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                var link = document.createElement("a");
+                var url = URL.createObjectURL(blob);
+                link.href = url;
+                link.download = filename;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            }
+        }
+      </script>
+    
+        
+
+      {% else %}
+        <div id="csv_table" style="position: absolute; top: 25px; right: 170px; width: 400px; padding: 15px; ">
+          <p>Upload the CSV..</p>
+        </div>
+      {% endif %}
+
+    </div>
+
+
+
+
+            <!-- Loading Spinner -->
+      <div id="loadingSpinner" style="
+      display: none; /* Initially hidden */
+      position: absolute;
+      top: 500px;
+      left: 1350px;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: #333;
+      text-align: center;">
+      <div class="spinner"></div>
+      <p>Processing CSV data...</p>
+      </div>
+
+
+      <div id="loadingSpinner_2" style="
+      display: none; /* Initially hidden */
+      position: absolute;
+      top: 450px;
+      left: 950px;
+      transform: translate(-50%, -50%);
+      font-size: 24px;
+      color: #333;
+      text-align: center;">
+      <div class="spinner"></div>
+      <p>Processing User Input...</p>
+      </div>
+
+
+      <!-- Style for Spinner -->
+      <style>
+      .spinner {
+          border: 4px solid rgba(0, 0, 0, 0.1);
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          border-left-color: #09f;
+          animation: spin 1s linear infinite;
+          margin: auto;
+      }
+
+      @keyframes spin {
+          from {
+              transform: rotate(0deg);
+          }
+          to {
+              transform: rotate(360deg);
+          }
+      }
+      </style>
+
+      <!-- Show Spinner on Upload -->
+      <script>
+      function showLoading() {
+          // Hide CSV Table (Reset Data)
+          document.getElementById("csv_table").innerHTML = "<p>Loading...</p>";
+
+          document.getElementById("loadingSpinner").style.display = "block";
+      }
+      </script>
+<!--
+    <script>
+      function showLoading_2() {
+        var input1 = document.getElementById("input1_pp").value.trim();
+        var input2 = document.getElementById("input2_pp").value.trim();
+        var input3 = document.getElementById("input3_pp").value.trim();
+        var input4 = document.getElementById("input4_pp").value.trim();
+
+
+
+    
+        if ((input1 !== "" && input2 !== "") || (input3 !== "" && input4 !== "") || (input3 !== "" && input2!== "")  || (input1 !== "" && input4!== ""))  {
+            document.getElementById("loadingSpinner_2").style.display = "block";
+        } else {
+            alert("Please fill in both inputs before proceeding.");
+        }
+      }
+    </script>
+  -->
+    
+
+  </div>
+
+
+  <script>
+    function isValidProtein(sequence) {
+        const validAminoAcids = /^[ACDEFGHIKLMNPQRSTVWY]+$/i;  // standard single-letter codes, case-insensitive
+        return validAminoAcids.test(sequence);
+    }
+    
+    function handleFormSubmission() {
+        const input1 = document.getElementById("input1_pp").value.trim();
+        const input2 = document.getElementById("input2_pp").value.trim();
+        const file1 = document.getElementById("input3_pp").files.length;
+        const file2 = document.getElementById("input4_pp").files.length;
+    
+        // Validation for Protein Sequence-I
+        if (!input1 && !file1) {
+            alert("Please provide Protein Sequence-I or upload PDB File-I.");
+            return;
+        }
+        if (input1 && !isValidProtein(input1)) {
+            alert("Protein Sequence-I is invalid! Use valid amino acid codes (A-Z).");
+            return;
+        }
+    
+        // Validation for Protein Sequence-II
+        if (!input2 && !file2) {
+            alert("Please provide Protein Sequence-II or upload PDB File-II.");
+            return;
+        }
+        if (input2 && !isValidProtein(input2)) {
+            alert("Protein Sequence-II is invalid! Use valid amino acid codes (A-Z).");
+            return;
+        }
+    
+        // Show loader and submit form
+        document.getElementById("loadingSpinner_2").style.display = "block";
+        document.getElementById("projectForm_pp").submit();
+    }
+    </script>
+
+
+  
+
+  <div id="QClair-PPI" class="content" style="display:none;">
+    <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+    </br>
+    </br>
+    <div style="
+    position: relative; 
+    background-image: url('{% static "img/PP_bg.jpeg" %}'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    height: 800px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: top; 
+    text-align: left;
+    ">
+ <!-- Overlay for better text visibility -->
+    <div style="
+        position: absolute; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 100%; 
+        background-color: rgba(223, 231, 231, 0.5); 
+        z-index: 1;
+        "></div>
+
+        <!-- Text content -->
+    <p style="
+        position: relative; 
+        z-index: 10; 
+        color: rgba(0, 0, 0, 0.7); 
+        font-size: 18px; 
+        font-weight: bold; 
+        margin: 0; 
+        padding: 20px; 
+        text-shadow: 1px 1px 5px rgba(229, 241, 241, 0.7);
+    ">
+    QClair-ProteinPro Predictor is designed to forecast the interactions between two proteins. These interactions are fundamental to many biological processes,
+    including cellular signaling, immune responses, and enzymatic regulation. Understanding and predicting PPIs can provide insights into cellular mechanisms,
+    disease pathways, and therapeutic targets.
+    </p>
+  </div>
+  </div>
+
+  <div id="Batch Results" class="content" style="display:none;" >
+    <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      <div style="position: absolute; top: 75px; left: 260px; width: 1000px; height:700px; padding: 5px;">
+        
+        {% if csv_data %}
+  
+          <div id="csv_table" style="
+          position: relative;
+          width: 1500px; /* Fixed width in pixels */
+          height: 700px; /* Fixed height */
+          overflow-y: auto;
+          padding: 10px;
+          background-color: #f8f8f8;
+          border: 1px solid black;
+          border-radius: 8px;
+          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+          ">
+          <table border="1" style="
+              width: 960px; /* Fixed width for table */
+              border-collapse: collapse;
+              table-layout: fixed; /* Ensures fixed column widths */
+            ">
+              <thead>
+                  <tr style="background-color: #e0e0e0;">
+                      <th style="width: 490px; text-align: left; padding: 5px;">Protein_1</th>
+                      <th style="width: 490px; text-align: left; padding: 5px;">Protein_2</th>
+                      <th style="width: 490px; text-align: left; padding: 5px;">Interaction</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for row in result_pp_2 %}
+                  <tr>
+                      <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.Protein_1 }}</td>
+                      <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.Protein_2 }}</td>
+                      <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{row.Interaction}}</td>
+                  </tr>
+                  {% empty %}
+                  <tr>
+                      <td colspan="3" style="text-align: center; padding: 10px;">No results found.</td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+    
+          <!-- Download CSV Button -->
+          <div style="position: absolute; top: 725px; left: 15px;">
+              <button type="button" onclick="downloadCSV_pp()" style="padding: 8px 16px; font-size: 14px;">Download CSV</button>
+          </div>
+  
+        
+  
+      
+  
+          <script>
+            function downloadCSV_pp() {
+                var csv = [];
+                var table = document.querySelector("#csv_table table");
+        
+                if (!table) {
+                    alert("No table found to download.");
+                    return;
+                }
+        
+                var rows = table.querySelectorAll("tr");
+        
+                for (var i = 0; i < rows.length; i++) {
+                    var row = [];
+                    var cols = rows[i].querySelectorAll("th, td");
+        
+                    for (var j = 0; j < cols.length; j++) {
+                        var data = cols[j].innerText.trim().replace(/"/g, '""'); // Trim spaces & escape quotes
+                        row.push('"' + data + '"');
+                    }
+        
+                    if (row.length > 0) {
+                        csv.push(row.join(","));
+                    }
+                }
+        
+                if (csv.length === 0) {
+                    alert("No data found in the table.");
+                    return;
+                }
+        
+                var csv_string = csv.join("\n");
+                var filename = "downloaded_prediction_pp.csv";
+                var blob = new Blob([csv_string], { type: "text/csv;charset=utf-8;" });
+        
+                if (navigator.msSaveBlob) {
+                    navigator.msSaveBlob(blob, filename);
+                } else {
+                    var link = document.createElement("a");
+                    var url = URL.createObjectURL(blob);
+                    link.href = url;
+                    link.download = filename;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                }
+            }
+          </script>
+        
+          
+  
+        {% else %}
+          <div style="position: absolute; top: 25px; right: 125px; width: 400px; padding: 15px; ">
+            <p>Upload the CSV..</p>
+          </div>
+        {% endif %}
+      </div>
+    
+    
+  </div>
+
+  <div id="User Data" class="content" style="display:none;" >
+    <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+    <br>
+      <br>
+      <h1>User Interaction Results</h1>
+    
+      {% if data_pp %}
+      <div style="position: absolute; margin-top: 20px; margin-left: 275px; width: 1000px; max-height: 650px; overflow-y: auto; border: 1px solid black;">
+          <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+              <thead>
+                  <tr>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Input 1</th>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Input 2</th>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Result</th>
+                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Timestamp</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for entry in data_pp %}
+                      <tr>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.input1_user }}</td>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.input2_user }}</td>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.result_user }}</td>
+                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.timestamp_user }}</td>
+                      </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+      </div>
+      {% else %}
+          <p style="text-align: center; font-size: 1.2em; color: #888;">No interaction results found.</p>
+      {% endif %}
+  
+    
+  </div>
+
+  <div id="Protein Structure Visualization" class="content" style="display:none;">
+    <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+    </br>
+    </br>
+    <h1>Visualize Protein Structures from Uploaded PDB Files / PDBID: </h1>
+    <div style=" text-align: center;">
+      </br>
+      <!-- <h2>Protein Structure Visualization</h2> -->
+      </br>
+      </br>
+      </br>
+      <!-- 
+      <div style="position: absolute; top: 150px; left: 550px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+        <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB File</h4>
+        <input type="file"  id="input4_pl" name="input4_pl" accept=".pdb">
+        <button type="submit" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+      </div>
+
+      -->
+      <!--
+      <form id="pbdform" action="{% url 'process_form_pl' %}" method="post" enctype="multipart/form-data" style="position: absolute; top: 150px; left: 550px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+        {% csrf_token %}
+        <input type="hidden" name="form_type" value="pdb">
+        <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB File</h4>
+        <input type="file" id="input4_pl" name="input4_pl" accept=".pdb">
+        <button type="submit" id="loadBtn" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+      </form>
+      -->
+
+      <script>
+        document.getElementById("loadBtn").addEventListener("submit", function() {
+          var fileInput = document.getElementById("input4_pl");
+          if (fileInput.files.length === 0) {
+            alert("Please select a file to upload.");
+            return;
+          }
+          
+          var form = document.getElementById("pbdform");
+          var formData = new FormData(form);
+          
+          // Log the file to ensure it's attached
+          console.log("Selected file:", fileInput.files[0]);
+          
+          fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            credentials: 'same-origin'
+          })
+          .then(response => {
+            const contentType = response.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+              return response.json();
+            } else {
+              return response.text();
+            }
+          })
+          .then(data => {
+            console.log('Success:', data);
+            // Update your UI accordingly here.
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
+        });
+      </script>
+
+
+    
+    
+    
+
+      <div id="viewer-container" style="position: absolute; top: 175px; left: 300px;">
+        <p style="margin-bottom: 5px; font-weight: bold; text-align: center;">PDB-I Protein Structure</p>
+        {{ pdb_visual_1|safe }}
+      </div>
+      
+      <!-- 
+      <div style="position: absolute; top: 125px; right: 250px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+        <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB ID</h4>
+        <input type="text" id="pdbId" placeholder="Enter PDB ID (e.g., 1crn)" style="padding: 5px; font-size: 14px;" />
+        <button onclick="loadStructure()" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+      </div>
+      <div id="viewport"></div>
+      -->
+      <!-- 
+      <div style="position: absolute; top: 125px; right: 250px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+        <h4 style="margin: 0 0 10px 0;">Load First Protein Structure by PDB ID</h4>
+        <input type="text" id="pdbId1" placeholder="Enter PDB ID (e.g., 2AZW)" style="padding: 5px; font-size: 14px;" />
+        <button onclick="loadStructure(stage1, 'pdbId1')" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+      </div>
+      -->
+      <div style="position: absolute; top: 145px; right: 120px; padding: 10px; border: 1px solid #ccc; width: 600px; z-index: 100; display: flex; align-items: center; gap: 10px;">
+        <h4 style="margin: 0; white-space: nowrap;">Load First Protein Structure by PDB ID:</h4>
+        <input type="text" id="pdbId1" placeholder="Enter PDB ID (e.g., 2AZW)" style="padding: 5px; font-size: 14px; flex: 1;" />
+        <button onclick="loadStructure(stage1, 'pdbId1')" style="padding: 5px 10px; font-size: 14px;">Load</button>
+      </div>
+    
+
+      <div id="viewport"></div>
+
+      <br>
+
+
+      <div id="viewer-container" style="position: absolute; top: 525px; left: 300px;">
+        <p style="margin-bottom: 5px; font-weight: bold; text-align: center;">PDB-II Protein Structure</p>
+        {{ pdb_visual_2|safe }}
+      </div>
+
+      <!--
+
+      <div style="position: absolute; top: 525px; right: 250px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+        <h4 style="margin: 0 0 10px 0;">Load Second Protein Structure by PDB ID</h4>
+        <input type="text" id="pdbId2" placeholder="Enter PDB ID (e.g., 1CRN)" style="padding: 5px; font-size: 14px;" />
+        <button onclick="loadStructure(stage2, 'pdbId2')" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+      </div>
+
+      -->
+
+      <div style="position: absolute; top: 520px; right: 120px; padding: 10px; border: 1px solid #ccc; width: 600px; z-index: 100; display: flex; align-items: center; gap: 10px;">
+        <h4 style="margin: 0; white-space: nowrap;">Load Second Protein Structure by PDB ID:</h4>
+        <input type="text" id="pdbId2" placeholder="Enter PDB ID (e.g., 1CRN)" style="padding: 5px; font-size: 14px; flex: 1;" />
+        <button onclick="loadStructure(stage2, 'pdbId2')" style="padding: 5px 10px; font-size: 14px;">Load</button>
+      </div>
+    
+
+      <div id="viewport_2"></div>
+
+      <!--
+
+      <div style="position: absolute; top: 525px; right: 250px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+        <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB ID</h4>
+        <input type="text" id="pdbId" placeholder="Enter PDB ID (e.g., 1crn)" style="padding: 5px; font-size: 14px;" />
+        <button onclick="loadStructure_2()" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+      </div>
+      <div id="viewport_2"></div>
+      -->
+
+<!--
+      <div id="viewer-container" style="position: absolute; top: 250px; left: 300px;">
+        {{ pdb_visual_2|safe }}
+      </div>
+    
+
+      
+      
+      <div style="position: absolute; top: 150px; right: 250px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+        <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB ID</h4>
+        <input type="text" id="pdbId" placeholder="Enter PDB ID (e.g., 1crn)" style="padding: 5px; font-size: 14px;" />
+        <button onclick="loadStructure()" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+      </div>
+      <div id="viewport"></div>
+
+    -->
+    <script>
+      var stage1, stage2;
+    
+      // Initialize both stages after window loads
+      window.onload = function() {
+        stage1 = new NGL.Stage("viewport");
+        stage2 = new NGL.Stage("viewport_2");
+      };
+    
+      // Generic function to load structure into the given stage
+      function loadStructure(stage, inputId) {
+        var pdb = document.getElementById(inputId).value.trim();
+        if (!pdb) {
+          alert("Please enter a valid PDB ID.");
+          return;
+        }
+    
+        // Remove previous structure and load new one
+        stage.removeAllComponents();
+        stage.loadFile("rcsb://" + pdb, { defaultRepresentation: true })
+          .then(function(component) {
+            stage.autoView();
+            stage.handleResize();
+          })
+          .catch(function(error) {
+            alert("Error loading structure: " + error);
+          });
+      }
+    </script>
+
+      <!-- 
+      <script>
+        var stage;
+    
+        // Initialize stage after window load to ensure container is ready
+        window.onload = function() {
+          stage = new NGL.Stage("viewport");
+          
+        };
+    
+        // Function to load the structure using the PDB ID entered by the user
+        function loadStructure() {
+          var pdb = document.getElementById('pdbId').value.trim();
+          if (!pdb) {
+            alert("Please enter a valid PDB ID.");
+            return;
+          }
+          
+          // Clear previous components
+          stage.removeAllComponents();
+          
+          // Load the structure from RCSB using the provided PDB ID
+          stage.loadFile("rcsb://" + pdb, { defaultRepresentation: true })
+            .then(function(component) {
+              stage.autoView();
+              stage.handleResize();
+            })
+            .catch(function(error) {
+              alert("Error loading structure: " + error);
+            });
+        }
+      </script>
+
+
+      <script>
+        var stage_2;
+    
+        // Initialize stage after window load to ensure container is ready
+        window.onload = function() {
+          stage_2 = new NGL.Stage("viewport_2");
+          
+        };
+    
+        // Function to load the structure using the PDB ID entered by the user
+        function loadStructure_2() {
+          var pdb = document.getElementById('pdbId').value.trim();
+          if (!pdb) {
+            alert("Please enter a valid PDB ID.");
+            return;
+          }
+          
+          // Clear previous components
+          stage_2.removeAllComponents();
+          
+          // Load the structure from RCSB using the provided PDB ID
+          stage_2.loadFile("rcsb://" + pdb, { defaultRepresentation: true })
+            .then(function(component) {
+              stage_2.autoView();
+              stage_2.handleResize();
+            })
+            .catch(function(error) {
+              alert("Error loading structure: " + error);
+            });
+        }
+      </script>
+
+    -->
+
+
+
+
+
+
+
+    </div>  
+  </div> 
+
+
+   
+    
+
+  
+    
+    <div id="PDB-1 Content" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>PDB File-I Content:</h1>
+      <div id="pdb_table_container">
+        <!-- Use the safe filter to render the HTML table -->
+        {{ pdb_read_1|safe }}
+      </div>
+    </div>
+
+
+    <div id="PDB-2 Content" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>PDB File-II Content:</h1>
+      <div id="pdb_table_container">
+        <!-- Use the safe filter to render the HTML table -->
+        {{ pdb_read_2|safe }}
+      </div>
+    </div>
+
+
+
+
+
+
+    <div id="Molecular Properties" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Molecular Properties</h1>
+      <p class="text">The features of the Protein Sequence-1 and Protein Sequence-2, derived from the user's input, are displayed below.</p>
+      </br>
+          <div style="display: flex; justify-content: space-between; gap: 20px;">
+            <!-- First Flex Container for Ligand Descriptors Table -->
+            
+            <div style="flex: 1;">
+                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Protein Sequence-1: {{input1}}</h2>
+                </br>
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black; text-align: center;">Protein-1 Properties</th>
+                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, value in protein_descriptors_1.items %}
+                            <tr>
+                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
+                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+            <!-- Second Flex Container for Protein Properties Table -->
+            <div style="flex: 1;">
+                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Protein Sequence-2: {{input2}}</h2>
+                </br>
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black; text-align: center;">Protein-2 Properties</th>
+                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, value in protein_descriptors_2.items %}
+                            <tr>
+                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
+                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+    </div>
+
+    <p class="copyright">
+      &copy; 2025 - <span>QClairvoyance Quantum Labs Pvt. Ltd</span> All Rights Reserved.
+    </p>
+  </main>
+
+  <script src="{% static 'js/app_pp.js'%}"></script>
+  <script src="{% static 'js/3D_viewer.js'%}"></script>
+</body>
+
+</html>

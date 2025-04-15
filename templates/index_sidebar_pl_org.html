@@ -1,0 +1,621 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sidebar Menu</title>
+  <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+  <!-- 3D Mol -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.6/3Dmol-min.js"></script>
+<script src="https://3Dmol.org/build/3Dmol-min.js"></script>      
+<script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script> 
+
+<script src="https://cdn.jsdelivr.net/npm/ngl@latest/dist/ngl.js"></script>
+
+<style>
+  /* Ensure the container has explicit dimensions */
+  #viewport {
+    width: 800px;
+    height: 600px;
+    border: 1px solid #ccc;
+    position: absolute; /* This enables positioning using top/right */
+    top: 250px;
+    right: 15px;
+  }
+</style>
+
+<style>
+  .logout-btn {
+    position: absolute;
+    top: 30px;    /* Adjust top position */
+    right: 50px;  /* Adjust right position */
+    background-color:  #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 18px;
+    }
+  .logout-btn:hover {
+    background-color:rgb(196, 232, 233);
+  }
+
+
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #007bff;
+    padding: 15px;
+    color: white;
+}
+</style>
+
+</head>
+
+<body>
+  <nav>
+    <div class="sidebar-top">
+      <span class="shrink-btn">
+        <i class='bx bx-chevron-left'></i>
+      </span>
+      
+      <a href="{% url 'home' %}">
+        <img src="{% static 'img/favicon_qc.png' %}" class="logo" alt="Home">
+      </a>
+      <h3 class="hide">QClair-AffPro</h3>
+    </div>
+
+    <div class="search">
+      <i class='bx bx-search'></i>
+      <input type="text" class="hide" placeholder="Quick Search ...">
+    </div>
+
+    <div class="sidebar-links">
+      <ul>
+        <div class="active-tab"></div>
+        <li class="tooltip-element" data-tooltip="0">
+          <a href="#" class="active" data-active="0" onclick="showContent('Predict')">
+            <div class="icon">
+              <i class='bx bx-tachometer'></i>
+              <i class='bx bxs-tachometer'></i>
+            </div>
+            <span class="link hide">Predict</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="1">
+          <a href="#"  data-active="1" onclick="showContent('QClair-PLI')">
+            <div class="icon">
+              <i class='bx bx-folder'></i>
+              <i class='bx bxs-folder'></i>
+            </div>
+            <span class="link hide">QClair-PLI</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="2">
+          <a href="#" data-active="2" onclick="showContent('Protein Structure Visualization')">
+            <div class="icon">
+              <i class='bx bx-message-square-detail'></i>
+              <i class='bx bxs-message-square-detail'></i>
+            </div>
+            <span class="link hide">Protein Structure Visualization</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="3">
+          <a href="#" data-active="3" onclick="showContent('Ligand Struture Visualization')">
+            <div class="icon">
+              <i class='bx bx-bar-chart-square'></i>
+              <i class='bx bxs-bar-chart-square'></i>
+            </div>
+            <span class="link hide">Ligand Struture Visualization</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="4">
+          <a href="#" data-active="4" onclick="showContent('Molecular Properties')">
+            <div class="icon">
+              <i class='bx bx-bar-chart-square'></i>
+              <i class='bx bxs-bar-chart-square'></i>
+            </div>
+            <span class="link hide">Molecular Properties</span>
+          </a>
+        </li>
+
+        <li class="tooltip-element" data-tooltip="5">
+          <a href="#" data-active="5" onclick="showContent('Analysis')">
+            <div class="icon">
+              <i class='bx bx-bar-chart-square'></i>
+              <i class='bx bxs-bar-chart-square'></i>
+            </div>
+            <span class="link hide">Analysis</span>
+          </a>
+        </li>
+
+
+        <div class="tooltip">
+          <span class="show">Predict</span>
+          <span>QClair-PLI</span>
+          <span>Protein Structure Visualization</span>
+          <span>Ligand Struture Visualization</span>
+          <span>Molecular Properties</span>
+          <span>Analysis</span>
+        </div>
+      </ul>
+      <!--
+      <h4 class="hide">Shortcuts</h4>
+
+      <ul>
+        <li class="tooltip-element" data-tooltip="6">
+          <a href="#" data-active="6">
+            <div class="icon">
+              <i class='bx bx-notepad'></i>
+              <i class='bx bxs-notepad'></i>
+            </div>
+            <span class="link hide">Tasks</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="7">
+          <a href="#" data-active="7">
+            <div class="icon">
+              <i class='bx bx-help-circle'></i>
+              <i class='bx bxs-help-circle'></i>
+            </div>
+            <span class="link hide">Help</span>
+          </a>
+        </li>
+        <li class="tooltip-element" data-tooltip="8">
+          <a href="#" data-active="8">
+            <div class="icon">
+              <i class='bx bx-cog'></i>
+              <i class='bx bxs-cog'></i>
+            </div>
+            <span class="link hide" onclick="location.href='{% url 'logout' %}'">Settings</span> 
+
+          </a>
+        </li>
+        <div class="tooltip">
+          <span class="show">Tasks</span>
+          <span>Help</span>
+          <span >Settings</span>
+        </div>
+      </ul> -->
+    </div>
+
+    <div class="sidebar-footer">
+      <a href="#" class="account tooltip-element" data-tooltip="10">
+        <i class='bx bx-user'></i>
+      </a>
+      <div class="admin-user tooltip-element" data-tooltip="11">
+        <div class="admin-profile hide">
+          <a>
+            <img src="{% static 'img/user.png' %}" class="logo" alt="Home">
+          </a>
+          <div class="admin-info">
+            <h4>{{username}}</h4>
+          </div>
+        </div>
+        
+        <a href='{% url 'logout' %}' class="log-out">
+          <i class='bx bx-log-out'></i>
+        </a>
+        
+      </div>
+      <div class="tooltip">
+        <span class="show">John Doe</span>
+        <span>Logout</span>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    
+    <div id="Predict" class="content" style="display:block;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Predict</h1>
+      <p class="text">Give input as Ligand SMILES and Protein Sequence.</p>
+
+      <!-- Form inside Projects Section -->
+      <form id="projectForm" action="{% url 'process_form_pl' %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            <label for="input1_pl">Ligand SMILES</label>
+            <input type="text" id="input1_pl" name="input1_pl" placeholder="Enter SMILES" required>
+        </div>
+    
+        <div class="form-group">
+          <label for="input2_pl">Protein Sequence</label>
+          <textarea id="input2_pl" name="input2_pl" placeholder="Enter Protein Sequence"></textarea>
+        </div>
+  
+        <h4 style="text-align: center;">OR</h4>
+  
+        <div class="form-group">
+          <label for="input3_pl">Input 3 (PDB File)</label>
+          <input type="file"  id="input3_pl" name="input3_pl" accept=".pdb">
+        </div>
+      
+        <button type="submit">Submit</button>
+        <div id="resultContainer" style=" margin-top: 20px; padding: 10px; border: 1px solid #ccc;">
+          <h3 id="resultHeader">Result: {{result}}</h3>
+          <p id="resultText"></p>
+        </div>
+        <button type="button" id="clearBtn">Clear</button>
+      </form>
+
+      <script>
+          document.addEventListener("DOMContentLoaded", function () {
+              const form = document.querySelector("#projectForm");
+              const inputLigand = document.querySelector("#input1_pl");
+              const inputProtein = document.querySelector("#input2_pl");
+              const resultHeader = document.querySelector("#resultHeader"); // Select the h3 element for result
+              const resultText = document.querySelector("#resultText"); // Select the result text element
+              const clearBtn = document.querySelector("#clearBtn");
+              
+
+              // Restore saved values from localStorage if available
+              inputLigand.value = localStorage.getItem("input1_pl") || "";
+              inputProtein.value = localStorage.getItem("input2_pl") || "";
+            
+
+              form.addEventListener("submit", function () {
+                  // Save inputs to localStorage before submission
+                  localStorage.setItem("input1_pl", inputLigand.value);
+                  localStorage.setItem("input2_pl", inputProtein.value);
+              });
+
+              // Clear stored values when clicking "Clear" button
+              clearBtn.addEventListener("click", function () {
+                  localStorage.removeItem("input1_pl");
+                  localStorage.removeItem("input2_pl");
+                  inputLigand.value = "";
+                  inputProtein.value = "";
+                  resultHeader.textContent = "Result:"; // Clear the result header text
+                  resultText.textContent = ""; // Clear the result text
+              });
+          });
+      </script>
+
+      <script>
+        document.getElementById("projectForm").addEventListener("submit", function(event) {
+            let smiles = document.getElementById("input1_pl").value.trim();
+            let protein = document.getElementById("input2_pl").value.trim();
+            let pdbFile = document.getElementById("input3_pl").files.length;
+    
+            // SMILES is always required
+            if (!smiles) {
+                event.preventDefault();
+                alert("Ligand SMILES is required.");
+                return;
+            }
+    
+            // Either Protein Sequence or PDB file is required
+            if (!protein && !pdbFile) {
+                event.preventDefault();
+                alert("Please provide either a Protein Sequence or upload a PDB file.");
+                return;
+            }
+        });
+      </script>
+
+    </div>
+  
+
+    <div id="QClair-PLI" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      
+      <div style="
+        position: relative; 
+        background-image: url('{% static "img/PL_bg_1.jpeg" %}'); 
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        height: 800px; 
+        display: flex; 
+        justify-content: center; 
+        align-items: top; 
+        text-align: left;
+        ">
+        <!-- Overlay for better text visibility -->
+        <div style="
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(223, 231, 231, 0.5); 
+            z-index: 1;
+            "></div>
+
+            <!-- Text content -->
+          <p style="
+              position: relative; 
+              z-index: 10; 
+              color: rgba(0, 0, 0, 0.7); 
+              font-size: 18px; 
+              font-weight: bold; 
+              margin: 0; 
+              padding: 20px; 
+              text-shadow: 1px 1px 5px rgba(229, 241, 241, 0.7);
+          ">
+          QClair-AffPro Affinity Predictor is an advanced computational model designed to evaluate the interaction strength between a protein and a ligand,
+          expressed as binding affinity, often quantified by inhibitory constants (Ki). Accurate prediction of binding affinity is a critical component in drug discovery.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!--
+    <div id="Protein Structure Visualization" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Visualize Protein by inputing the PBD ID</h1>
+      <div style=" text-align: center;">
+        </br>
+        <h2>Protein Sequence Visualization</h2>
+        </br>
+        </br>
+        </br>
+    
+        <div style="height: 600px; width: 1000px; 
+            position: absolute; 
+            top: 60%; left: 55%; 
+            transform: translate(-50%, -50%);"
+            class='viewer_3Dmoljs' 
+            data-pdb="" 
+            data-backgroundcolor='0xffffff' 
+            data-style='ballstick'
+            data-ui='true'>
+        </div>
+      </div> 
+      
+    </div> -->
+
+
+    <div id="Protein Structure Visualization" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Visualize Protein from Inputted PDB File </h1>
+      <div style=" text-align: center;">
+        </br>
+        <!-- <h2>Protein Structure Visualization</h2> -->
+        </br>
+        </br>
+        </br>
+        <!-- 
+        <div style="position: absolute; top: 150px; left: 550px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+          <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB File</h4>
+          <input type="file"  id="input4_pl" name="input4_pl" accept=".pdb">
+          <button type="submit" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+        </div>
+
+        -->
+
+        <form id="pbdform" action="{% url 'process_form_pl' %}" method="post" enctype="multipart/form-data" style="position: absolute; top: 150px; left: 550px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+          {% csrf_token %}
+          <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB File</h4>
+          <input type="file" id="input4_pl" name="input4_pl" accept=".pdb">
+          <button  type="button" id="loadBtn"  style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+        </form>
+
+        <script>
+          document.getElementById("loadBtn").addEventListener("click", function() {
+            var fileInput = document.getElementById("input4_pl");
+            if (fileInput.files.length === 0) {
+              alert("Please select a file to upload.");
+              return;
+            }
+            
+            var form = document.getElementById("pbdform");
+            var formData = new FormData(form);
+            
+            // Log the file to ensure it's attached
+            console.log("Selected file:", fileInput.files[0]);
+            
+            fetch(form.action, {
+              method: 'POST',
+              body: formData,
+              credentials: 'same-origin'
+            })
+            .then(response => {
+              const contentType = response.headers.get('content-type');
+              if (contentType && contentType.includes('application/json')) {
+                return response.json();
+              } else {
+                return response.text();
+              }
+            })
+            .then(data => {
+              console.log('Success:', data);
+              // Update your UI accordingly here.
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
+          });
+        </script>
+
+        
+    
+        <div id="viewer-container" style="position: absolute; top: 250px; left: 300px;">
+          {{ pdb_visual|safe }}
+        </div>
+        <!--- 
+
+        <div style="height:600px; width:700px; position:absolute; top:225px; left:1150px;"
+            class="viewer_3Dmoljs" 
+            data-pdb="2AZW" 
+            data-backgroundcolor="0xffffff" 
+            data-style="ballstick"
+            data-ui="true">
+        </div>
+        -->
+        <div style="position: absolute; top: 150px; right: 250px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
+          <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB ID</h4>
+          <input type="text" id="pdbId" placeholder="Enter PDB ID (e.g., 1crn)" style="padding: 5px; font-size: 14px;" />
+          <button onclick="loadStructure()" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+        </div>
+        <div id="viewport"></div>
+        
+        <script>
+          var stage;
+      
+          // Initialize stage after window load to ensure container is ready
+          window.onload = function() {
+            stage = new NGL.Stage("viewport");
+          };
+      
+          // Function to load the structure using the PDB ID entered by the user
+          function loadStructure() {
+            var pdb = document.getElementById('pdbId').value.trim();
+            if (!pdb) {
+              alert("Please enter a valid PDB ID.");
+              return;
+            }
+            
+            // Clear previous components
+            stage.removeAllComponents();
+            
+            // Load the structure from RCSB using the provided PDB ID
+            stage.loadFile("rcsb://" + pdb, { defaultRepresentation: true })
+              .then(function(component) {
+                stage.autoView();
+                stage.handleResize();
+              })
+              .catch(function(error) {
+                alert("Error loading structure: " + error);
+              });
+          }
+        </script>
+      </div> 
+      
+    </div> 
+
+    
+
+    
+
+    
+
+
+
+
+
+
+
+
+
+    <div id="Ligand Struture Visualization" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Visualize Ligand</h1>
+      <p>You can visualize Ligand 2D and 3D structure.</p>
+          </br>
+          <!-- Third Div: Protein Sequence Visualization -->
+          <div style="display: flex; justify-content: center; gap: 10px; align-items: center;">
+            <!-- First Div: SMILES 2D Visualization -->
+            <div style="flex: 1.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h2>SMILES 2D Visualization:</h2>
+                {{ smiles_visualization|safe }}
+            </div>
+            <!-- Second Div: SMILES 3D Visualization -->
+            <div style="flex: 2.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h2>SMILES 3D Visualization:</h2>
+                {{ smiles_3D_visualization|safe }}
+                
+            </div>
+            <!--
+            <div style=" text-align: center;">
+              <h2>Protein Sequence Visualization:</h2>
+              <div style="height: 400px; width: 400px; position: absolute;" class='viewer_3Dmoljs' data-pdb="" data-backgroundcolor='0xffffff' data-style='stick' data-ui='true'></div>
+            </div>
+            -->
+          </div>
+    </div>
+
+    <div id="Analysis" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      <h4> Analysis Page </h4>
+    </div>
+
+
+    <div id="Molecular Properties" class="content" style="display:none;">
+      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
+      </br>
+      </br>
+      <h1>Molecular Properties</h1>
+      <p class="text">The features of the Ligand and Protein, derived from the user's input, are displayed below.</p>
+      </br>
+          <div style="display: flex; justify-content: space-between; gap: 20px;">
+            <!-- First Flex Container for Ligand Descriptors Table -->
+            
+            <div style="flex: 1;">
+                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Ligand Molecule: {{input1}}</h2>
+                </br>
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black; text-align: center;">Ligand Descriptor</th>
+                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, value in descriptors.items %}
+                            <tr>
+                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
+                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        
+            <!-- Second Flex Container for Protein Properties Table -->
+            <div style="flex: 1;">
+                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Protein Sequence: {{input2}}</h2>
+                </br>
+                <table border="1" style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="border: 1px solid black; text-align: center;">Protein Properties</th>
+                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for name, value in protein_descriptors.items %}
+                            <tr>
+                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
+                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+          </div>
+    </div>
+
+    
+
+    <p class="copyright">
+      &copy; 2025 - <span>QClairvoyance Quantum Labs Pvt. Ltd</span> All Rights Reserved.
+    </p>
+  </main>
+
+  <script src="{% static 'js/app.js'%}"></script>
+  <script src="{% static 'js/3D_viewer.js'%}"></script>
+</body>
+
+</html>
