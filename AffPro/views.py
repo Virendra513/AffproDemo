@@ -1108,8 +1108,6 @@ def get_top_n_min_predicted_ki(result_2, n=3):
 
 
 
-
-import torch
 from rdkit import Chem
 from rdkit.Chem import rdchem
 
