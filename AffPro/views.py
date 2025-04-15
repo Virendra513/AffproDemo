@@ -1161,7 +1161,7 @@ def prediction_ki_batch(csv_file):
             val2 = row[1].strip()  # Protein
             
             # Call the prediction function
-            #result = prediction_ki(model, val1, val2, model_esm, batch_converter)
+            
             result = prediction_ki(val1, val2)
             results.append({'ligand': val1, 'protein': val2, 'prediction': result})
     
