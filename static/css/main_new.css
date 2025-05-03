@@ -52,6 +52,38 @@
   --contrast-color: #ffffff;
 }
 
+.gradient-background {
+  --background-color: linear-gradient(to right, #f8f5fa, #a8c1ee);
+  --surface-color: rgba(255, 255, 255, 0.8);
+  background: var(--background-color);
+  color: rgb(238, 235, 235); /* Optional: Ensure text is visible */
+  position: relative;
+  z-index: 0;
+}
+
+
+.gradient-background-2 {
+  --background-color: linear-gradient(to right, #a8c1ee,  #f8f5fa);
+  --surface-color: rgba(255, 255, 255, 0.8);
+  background: var(--background-color);
+  color: rgb(238, 235, 235); /* Optional: Ensure text is visible */
+  position: relative;
+  z-index: 0;
+  --default-color: black;
+}
+
+
+
+
+#about {
+  min-height: 100vh; /* Full screen height */
+  position: relative;
+  z-index: 5;
+}
+
+
+
+
 /* Smooth scroll */
 :root {
   scroll-behavior: smooth;
@@ -173,12 +205,14 @@ h6 {
 .php-email-form .error-message {
   display: none;
   background: #df1529;
-  color: #ffffff;
+  color: #dab3b3;
   text-align: left;
   padding: 15px;
   margin-bottom: 24px;
   font-weight: 600;
+  
 }
+
 
 .php-email-form .sent-message {
   display: none;
@@ -194,7 +228,9 @@ h6 {
   display: none;
   background: var(--surface-color);
   text-align: center;
+  color: black;
   padding: 15px;
+  border: 3px solid black;
   margin-bottom: 24px;
 }
 
@@ -205,7 +241,7 @@ h6 {
   width: 24px;
   height: 24px;
   margin: 0 10px -6px 0;
-  border: 3px solid var(--accent-color);
+  border: 3px solid black;
   border-top-color: var(--surface-color);
   animation: php-email-form-loading 1s linear infinite;
 }
@@ -929,6 +965,14 @@ section,
   object-fit: cover;
 }
 
+
+
+
+.faded-gif {
+  opacity: 1; /* Lower value = more fade (0 = invisible, 1 = fully visible) */
+}
+
+
 .hero .container {
   z-index: 3;
 }
@@ -1020,6 +1064,9 @@ section,
 /*--------------------------------------------------------------
 # About Section
 --------------------------------------------------------------*/
+
+
+
 .about .content h3 {
   font-size: 2rem;
   font-weight: 700;
@@ -1111,6 +1158,44 @@ section,
 /*--------------------------------------------------------------
 # Services Section
 --------------------------------------------------------------*/
+
+
+
+.services {
+  position: relative; /* Important to contain absolutely positioned children */
+  overflow: hidden;   /* Hides anything that overflows the section */
+}
+
+.faded-gif-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.8;        /* Controls how faded the gif is */
+  z-index: -1;         /* Sends it behind all content in .services */
+  pointer-events: none; /* Prevents gif from blocking interactions */
+}
+
+
+
+.faded-gif-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;        /* Controls how faded the gif is */
+  z-index: -1;         /* Sends it behind all content in .services */
+  pointer-events: none; /* Prevents gif from blocking interactions */
+}
+
+
+
+
+
 .services .service-item {
   background-color: var(--surface-color);
   text-align: center;
@@ -1637,17 +1722,26 @@ section,
 # Gallery Section
 --------------------------------------------------------------*/
 .gallery .gallery-item {
-  overflow: hidden;
+  overflow: visible;
   border-right: 3px solid var(--background-color);
   border-bottom: 3px solid var(--background-color);
+  margin-left: 7.5px;
+  margin-right: 7.5px;
 }
 
 .gallery .gallery-item img {
   transition: all ease-in-out 0.4s;
+  border: 3px solid rgb(207, 245, 243);
+  border-radius: 8px;        /* Optional: adds rounded corners */
+  padding: 4px;
 }
 
 .gallery .gallery-item:hover img {
-  transform: scale(1.1);
+  
+  
+  transition: all 0.3s ease;
+  transform: scale(1.05);
+  border-color: #719eec;
 }
 
 /*--------------------------------------------------------------
@@ -1852,3 +1946,6 @@ section,
   height: 400px;
   position: relative;
 }
+
+
+

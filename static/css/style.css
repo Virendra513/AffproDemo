@@ -17,10 +17,12 @@
 body {
   font-family: "Poppins", sans-serif;
   overflow-x: hidden;
-  background-color: #e4e2f5;
-  min-height: 100vh;
+  background: linear-gradient(to right, #f8f5fa, #a8c1ee); /* Fixed line */
+  
   display: flex;
   position: relative;
+  min-width: 1200px;
+  overflow-x: auto;
 }
 
 a {
@@ -37,7 +39,7 @@ nav {
   top: 0;
   left: 0;
   height: 100vh;
-  background-color: var(--main-color);
+  background-color: #007bff;
   width: 16rem;
   padding: 1.8rem 0.85rem;
   color: #fff;
@@ -68,7 +70,8 @@ main h1 {
 }
 
 main .copyright {
-  margin-top: auto;
+  position:absolute;
+  bottom: 5px;
   font-size: 1rem;
 }
 
@@ -100,10 +103,10 @@ main .copyright span {
   top: 50%;
   height: 27px;
   padding: 0 0.3rem;
-  background-color: var(--main-color);
+  background-color: #007bff;
   border-radius: 6px;
   cursor: pointer;
-  box-shadow: 0 3px 10px -3px rgba(70, 46, 118, 0.3);
+  box-shadow: 0 3px 10px -3px rgba(7, 147, 228, 0.644);
   right: -2.65rem;
   transform: translateY(-50%) translateX(-8px);
   opacity: 0;
@@ -194,7 +197,9 @@ nav:hover .shrink-btn,
 .sidebar-links a.active,
 .sidebar-links a:hover {
   color: #fff;
+  
 }
+
 
 .sidebar-links a .link {
   transition: opacity 0.3s 0.2s, color 0.3s;
@@ -217,6 +222,7 @@ nav:hover .shrink-btn,
   top: 2.5px;
   left: 0;
   transition: top 0.3s;
+  
 }
 
 .sidebar-links h4 {
@@ -316,6 +322,7 @@ nav:hover .shrink-btn,
   position: absolute;
   right: -1.2rem;
   top: 0;
+  display: flex;
   transform: translateX(100%) translateY(-50%);
   padding: 0 0.8rem;
   font-size: 0.85rem;
@@ -331,6 +338,7 @@ nav:hover .shrink-btn,
   transition: all 0.3s;
   text-align: center;
   white-space: nowrap;
+  z-index: 9999;
 }
 
 .tooltip span {
@@ -338,15 +346,18 @@ nav:hover .shrink-btn,
   grid-row: 1 / 2;
   opacity: 0;
   transition: 0.3s;
+
 }
 
 .tooltip span.show {
   opacity: 1;
+  
 }
 
 .tooltip-element:hover ~ .tooltip {
   opacity: 1;
   pointer-events: all;
+  
 }
 
 /* When the menu shrinks */
@@ -386,6 +397,44 @@ body.shrink .admin-profile {
 
 body.shrink .tooltip {
   display: grid;
+
+}
+
+
+@media (max-width: 1200px) {
+  nav {
+    width: 5.4rem !important;
+  }
+
+  .hide {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    transition-delay: 0s !important;
+  }
+
+  .shrink-btn i {
+    transform: rotate(-180deg) !important;
+  }
+
+  .sidebar-links h4 {
+    height: 10px !important;
+  }
+
+  .account {
+    opacity: 1 !important;
+    pointer-events: all !important;
+    transition: opacity 0.3s 0.3s, color 0.3s 0s !important;
+  }
+
+  .admin-profile {
+    max-width: 0 !important;
+    transition: opacity 0.3s 0s, max-width 0.7s 0s ease-in-out !important;
+  }
+
+  .tooltip {
+    display: grid !important;
+  
+  }
 }
 
 
@@ -487,3 +536,25 @@ button:hover {
 .search input.show {
   display: inline-block;
 }
+
+.gradient-background {
+  --background-color: linear-gradient(to right, #f8f5fa, #a8c1ee);
+  --surface-color: rgba(255, 255, 255, 0.8);
+  background: var(--background-color);
+  color: rgb(238, 235, 235); /* Optional: Ensure text is visible */
+  position: relative;
+  z-index: 0;
+}
+
+
+.gradient-background-2 {
+  --background-color: linear-gradient(to right, #a8c1ee,  #f8f5fa);
+  --surface-color: rgba(255, 255, 255, 0.8);
+  background: var(--background-color);
+  color: rgb(238, 235, 235); /* Optional: Ensure text is visible */
+  position: relative;
+  z-index: 0;
+  --default-color: black;
+}
+
+

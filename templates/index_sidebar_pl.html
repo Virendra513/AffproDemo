@@ -5,9 +5,13 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!--
+  <meta name="viewport" content="width=1200">
+-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
   <link href="{% static 'img/favicon_qc.png' %}" rel="icon">
-  <title>Sidebar Menu</title>
+  <title>QClair-PLI</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -19,18 +23,392 @@
 
 <script src="https://cdn.jsdelivr.net/npm/ngl@latest/dist/ngl.js"></script>
 
-
-
 <style>
   /* Ensure the container has explicit dimensions */
   #viewport {
     width: 800px;
     height: 600px;
-    border: 1px solid #ccc;
+    border: 1px solid black;
     position: absolute; /* This enables positioning using top/right */
     top: 250px;
     right: 15px;
+    
   }
+
+
+  .form_pl_1 {
+    position: absolute;
+    top: 16vh;
+    left: 15vw;
+    width: 25vw;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+  }
+
+  .stack-container {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+  
+  /* Responsive stacking for tablet/mobile */
+  @media (max-width: 1700px) {
+    .stack-container {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px; /* vertical gap between stacked forms */
+    }
+
+    .predict-title
+     {
+      position: absolute !important;
+      left: 25vw !important;
+      top: auto;
+      margin: 0 auto;
+      font-size: 3.5vw !important;
+      word-break: break-word !important;
+    }
+
+    
+    .text-description
+     {
+      position: absolute !important;
+      left: 25vw !important;
+      top: auto;
+      margin: 0 auto;
+      font-size: 2.5vw !important;
+      word-break: break-word !important;
+    }
+
+
+
+
+    .form_pl_1
+     {
+      position: absolute !important;
+      width: 45vw;
+      left: 25vw !important;
+      top: 140px !important;
+      margin: 0 auto;
+      display: felx;
+      z-index: 100;
+    }
+
+     
+    .text_p  {
+      position: absolute !important;
+      left: 22.5vw !important;
+      top: 910px !important;
+      margin: 0 auto;
+      font-size: 1.5vw !important;
+      word-break: break-word !important;
+    }
+
+    .text_p span
+    {
+      font-size: 2.5vw !important;
+    }
+  
+    .csv-form-container
+    {
+      position: absolute !important;
+      width: 45vw !important;
+      left: 25vw !important;
+      top: 950px !important;
+    }
+
+    .csv-table-container
+    {
+      position: absolute! important;
+      left: 25vw !important;
+      
+      top: 1125px !important;
+      width: 45vw !important;
+      margin: 0;
+    }
+
+    .copyright
+    {
+      text-align : left;
+      font-size: 6px !important;
+      word-break: break-word !important;
+      bottom: 10px;
+
+    }
+
+    .Result_predict
+    {
+      font-size: 2vw!important;
+    }
+
+    .resultBox
+    {
+      width: 2vw !important;
+      font-size: 1.65vw!important;
+    }
+    
+    .home-button
+    {
+      left: 125px !important;
+      
+    }
+
+    
+    
+
+    body .tooltip {
+      all: unset; /* removes all inherited and default styles */
+      display: grid !important;
+      position: absolute !important;
+      z-index: 99999 !important;
+      background-color:  #007bff;
+      padding: 0.5rem;
+      color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+      height: 65px;
+      width: 125px;
+      align-items: center;
+    }
+
+  
+
+    
+
+
+    nav {
+      position: sticky;
+      top: 0;
+      left: 0;
+      height: auto;
+      background-color: #007bff;
+      width: 16rem;
+      padding: 1.8rem 0.85rem;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      transition: width 0.5s ease-in-out;
+    }
+  
+
+  }
+  
+</style>
+
+
+
+
+<!--  PLI  -->
+<style>
+
+  .PLI_image {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    height: 90%;
+    margin: 0 auto;
+  
+    background-image: url('{% static "img/DD_bg.jpeg" %}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  
+    padding-top: 56.25%; /* 16:9 aspect ratio */
+    box-sizing: border-box;
+    overflow: hidden; /* Ensures children don’t overflow the aspect box */
+  }
+  
+  /* Text positioned over the image */
+  .PLI_text {
+    position: absolute !important; /* This is critical */
+    top: 0;
+    left: 0;
+    z-index: 10;
+  
+    color: rgba(0, 0, 0, 0.7);
+    font-size: clamp(14px, 2vw, 22px);
+    font-weight: bold;
+    padding: 2vw;
+    text-shadow: 1px 1px 5px rgba(229, 241, 241, 0.7);
+    max-width: 68vw;
+    word-wrap: break-word;
+    box-sizing: border-box;
+    text-align: justify;
+  }
+  
+</style>
+
+
+<!--Protein Visualization  -->
+<style>
+/* Base styling for stack-container (horizontal layout by default) */
+.stack-container-PV {
+  display: flex;
+  flex-direction: row;  /* Horizontal layout */
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 20px;
+  gap: 20px; /* Horizontal gap between items */
+}
+
+#viewport {
+  width: 775px;
+  height: 600px;
+  border: 1px solid black;
+  position: absolute; /* This enables positioning using top/right */
+  top: 265px;
+  right: 15px;
+  
+}
+
+.protein_structure_2 {
+  display: flex;
+  position: absolute !important;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid black;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 300px;
+  top: 140px ;!important;
+  right: 225px; !important;
+  height:105px;
+
+}
+
+
+
+
+
+
+
+.protein_structure_2 h4 {
+  
+  padding: 5px;
+  font-size: 14px;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  
+  
+}
+
+.protein_structure_2 input {
+ 
+  padding: 5px;
+  font-size: 14px;
+  width: 250px;
+  margin: 0 auto;
+  
+}
+
+.protein_structure_2 button {
+  
+  padding: 5px;
+  font-size: 14px;
+  width: 250px;
+  margin: 0 auto;
+  
+}
+
+
+
+.protein_structure_1 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+/* Media query for smaller screen sizes */
+@media (max-width: 1700px) {
+  .stack-container-PV {
+    flex-direction: column;  /* Stack the container items vertically */
+    align-items: center;
+    gap: 10px;  /* Vertical gap between stacked items */
+  }
+
+  .protein_structure_1 {
+    position: absolute !important;
+    width: 45vw;
+    left: 25vw !important;
+    top: 140px !important;
+    margin: 0 auto;
+    display: felx;
+    z-index: 100;
+  }
+
+  .protein_structure_2 {
+    display: flex;
+    position: absolute !important;
+    flex-direction: column;
+    align-items: center;
+    padding: 2px;
+    border: 1px solid black;
+    margin-bottom: 20px;
+    width: 100%;
+    max-width: 280px;
+    top: 800px !important;
+    left: 23vw  !important;
+    height:105px;
+  
+  }
+
+
+  #viewport {
+    position: absolute! important;
+    left: 23vw !important;
+    top: 925px !important;
+    width: 55vw !important;
+    height: 500px;
+    margin: 0;
+  }
+
+
+  .P_heading {
+    font-size: 2vw;
+
+  }
+
+  
+
+
+}
+
+</style>
+
+<style>
+.faded-gif-3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.5;        /* Controls how faded the gif is */
+  z-index: -1;         /* Sends it behind all content in .services */
+  pointer-events: none; /* Prevents gif from blocking interactions */
+}
+
+
+.faded-gif-2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.05;        /* Controls how faded the gif is */
+  z-index: -1;         /* Sends it behind all content in .services */
+  pointer-events: none; /* Prevents gif from blocking interactions */
+}
+
 </style>
 
 <style>
@@ -79,6 +457,920 @@
   }
 </style>
 
+<style>
+.form-group {
+  border: 1px solid #000;
+  padding: 15px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+
+</style>
+
+
+<style>
+  .outer-container {
+    border: 1px solid #000;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 400px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    margin: 20px auto;
+  }
+  
+  .outer-container .form-group {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-bottom: 10px;
+  }
+  
+  .outer-container label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #333;
+  }
+  
+  .outer-container textarea,
+  .outer-container input[type="file"] {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+    resize: vertical;
+  }
+  
+  .outer-container h4 {
+    text-align: center;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+ 
+  </style>
+
+  <style>
+    #resultContainer {
+      margin-top: 20px;
+      padding: 15px;
+      border: 2px solid black;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-sizing: border-box;
+    }
+    
+    #resultContainer h3 {
+      margin: 0;
+      white-space: nowrap;
+      font-size: 16px;
+    }
+    
+    #resultBox {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid black;
+      background-color: #fff;
+      border-radius: 4px;
+      font-weight: bold;
+      text-align: center;
+      font-size: 16px;
+    }
+    </style>
+  
+  <style> 
+
+    .predict-title {
+      position: absolute;
+      top: 77.5px; /* same as padding-top in your inline style */
+      left:285px;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+    
+    .text-description {
+      position: absolute;
+      top: 110px;
+      font-size: 16px;
+      left:285px;
+      color: #444;
+      margin-bottom: 20px;
+    }
+    
+    .text_p {
+      position: absolute;
+      top: 130px;
+      right: 200px;
+      font-size: 8px;
+      color: #333;
+      
+      white-space: nowrap;
+      padding: 10px;
+      border-radius: 5px;
+      
+      max-width: 80%;
+    }
+    
+    .text_p span {
+      font-size: 18px;
+      font-weight: bold;
+    }
+    
+    .text_p {
+      font-size: 18px;
+      color: #333;
+    }
+  </style>
+
+  <style>
+  /* Outer container for the CSV form */
+  .csv-form-container {
+    position: absolute;
+    top: 170px;
+    right: 300px;
+    width: 500px;
+    padding: 5px;
+    border: 1px solid black;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+  
+  /* Form styling */
+  .csv-form-container .csv-form {
+    position: relative;
+    width: 400px;
+    height: 95px;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: rgb(241, 238, 238);
+  }
+  
+  /* File input styling */
+  .csv-form-container .csv-form input[type="file"] {
+    margin-bottom: 5px;
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  /* Submit button styling */
+  .csv-form-container .csv-form button {
+    padding: 5px 5px;
+    font-size: 14px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .csv-form-container .csv-form button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Hidden input for form type */
+  .csv-form-container .csv-form input[type="hidden"] {
+    display: none;
+  }
+</style> 
+
+
+<style>
+  .csv-table-container {
+    position: absolute;
+    top: 325px;
+    right: 50px;
+    width: 100%;
+    max-width: 1000px;
+    height: 500px;
+    padding: 5px;
+    box-sizing: border-box;
+    overflow-x: auto;
+    border: 1px solid black;
+    border-radius: 8px;
+  }
+
+  .csv-table {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    background-color: #f8f8f8;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .csv-table table {
+    width: 100%;
+    min-width: 960px;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+
+  .csv-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #e0e0e0;
+    z-index: 2;
+    border-bottom: 1px solid #ccc;
+    padding: 8px;
+  }
+
+  .csv-table th,
+  .csv-table td {
+    text-align: left;
+    padding: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border-right: 1px solid #ddd;
+  }
+
+  /* Fixed width per column by assigning specific classes */
+  .col-smiles,
+  .col-protein,
+  .col-prediction {
+    width: 320px;
+  }
+
+  .csv-table td:last-child,
+  .csv-table th:last-child {
+    border-right: none;
+  }
+
+  .csv-table .empty-row td {
+    text-align: center;
+    padding: 10px;
+  }
+</style>
+
+  
+<style> 
+.csv-download-button {
+  position: absolute;
+  top: 400px;
+  right: 450px;
+}
+
+.csv-download-button button {
+  padding: 8px 16px;
+  font-size: 14px;
+  color: black;
+  border: 1px solid #333;
+  background-color:  #4aafee;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.csv-download-button button:hover {
+  background-color:rgb(3, 43, 88);
+}
+</style> 
+
+<style>
+.csv-upload-message {
+  position: absolute;
+  top: 25px;
+  right: 170px;
+  width: 400px;
+  padding: 15px;
+  
+  font-size: 14px;
+  color: #333;
+}
+
+.faded-gif-4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.1;        /* Controls how faded the gif is */
+  z-index: -1;         /* Sends it behind all content in .services */
+  pointer-events: none; /* Prevents gif from blocking interactions */
+}
+</style>
+
+<!-- Ligand Visualization CSS-->
+
+<style>
+.L_visualization-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.L_visualization-box {
+  flex: 2.5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 400px;
+  height: 600px;
+  border: 1px solid black;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+
+.L_visualization-header {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.L_visualization-header h1 {
+  font-size: 2em;
+  margin: 0;
+}
+
+.L_visualization-header p {
+  font-size: 1.1em;
+  color: #555;
+  margin-top: 5px;
+}
+
+
+@media (max-width: 1700px) {
+  .L_visualization-container {
+      flex-direction: column;
+      align-items: flex-start !important;
+  
+  }
+
+  .L_visualization-box {
+    width: 68vw;
+    height: 1800px !important;
+
+  }
+
+  .L_visualization-header h1 {
+    font-size: 6vw;
+    margin: 0;
+  }
+  
+  .L_visualization-header p {
+    font-size: 3vw;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+}
+</style>
+
+<!-- Molecular Proerties-->
+<style>
+  .descriptor-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+}
+
+.descriptor-box {
+    flex: 1;
+    min-width: 300px;
+}
+
+.descriptor-heading {
+    text-align: center;
+    max-width: 500px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0 auto 15px;
+    font-size: 1.5em;
+}
+
+.descriptor-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1em;
+}
+
+.descriptor-table th,
+.descriptor-table td {
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
+}
+
+.Mol_P {
+  text-align: left;
+  padding: 10px;
+}
+
+.Mol_P h1 {
+  font-size: 2.5em;
+  margin-bottom: 10px;
+}
+
+.Mol_P .text {
+  font-size: 1.2em;
+  color: #444;
+  max-width: 800px;
+  text-align: left;
+}
+
+/* Responsive for screens below 900px */
+@media (max-width: 1700px) {
+  .descriptor-container {
+      flex-direction: column;
+      align-items: flex-start; /* center them horizontally */
+      width: 10vw;
+  }
+
+  .descriptor-box {
+      width: 10vw; /* optional: limits box width on large screens */
+      align-items: flex-start !important;
+  }
+
+  .descriptor-table {
+    width: 5vw;
+    border-collapse: collapse;
+    font-size: 3vw;
+    overflow: hidden;
+}
+.descriptor-table th,
+.descriptor-table td {
+    border: 1px solid black;
+    text-align: left;
+    width: 5vw;
+}
+
+.descriptor-heading {
+  text-align: center;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0 auto 15px;
+  font-size: 1em;
+}
+
+.Mol_P {
+  text-align: left;
+  padding: 10px;
+}
+
+.Mol_P h1 {
+  font-size: 4vw;
+  text-align: left;
+}
+
+.Mol_P .text {
+  font-size: 1.45vw;
+  text-align: left;
+}
+
+}
+
+
+</style>  
+
+<!-- Pdb Table Container Results -->
+<style>
+
+  h1.content_pdb {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+  }
+
+  #pdb_table_container {
+    max-width: 70vw;
+    max-height: 600px;
+    overflow: auto;
+    margin: 20px; /* Removed 'auto' to align left */
+    border: 1px solid #ccc;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    text-align: left; /* Ensures text/content aligns left */
+  }
+  
+  #pdb_table_container table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    text-align: left; /* Table text aligns left */
+  }
+  
+  #pdb_table_container th,
+  #pdb_table_container td {
+    border: 1px solid #999;
+    padding: 8px;
+    text-align: left; /* Ensure cell content is left-aligned */
+  }
+  
+  #pdb_table_container th {
+    background-color: #e0e0e0;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+  
+
+  @media (max-width: 1700px) {
+    #pdb_table_container {
+      max-width: 60vw;
+      max-height: 550px;
+    }
+
+    h1.content_pdb {
+      font-size: 4vw;
+      margin-bottom: 10px;
+    }
+
+
+
+  }
+  
+</style>
+
+
+
+<!--batch results -->
+<style>
+
+  /* Main container for batch results */
+.batch-container {
+    position: relative; /* or use static if you don't need absolute */
+    top: 25px;
+    width: 100%;
+    max-width: 1500px; /* optional: limits expansion on larger screens */
+    height: auto;
+    padding: 5px;
+    margin-left: 0;
+}
+
+/* Styling for the scrollable table container */
+#csv_table {
+    position: relative;
+    width: 1500px;
+    height: 700px;
+    overflow-y: auto;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Table styling */
+#csv_table table {
+    width: 960px;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+#csv_table th,
+#csv_table td {
+    width: 490px;
+    text-align: left;
+    padding: 5px;
+    word-break: break-word;
+    white-space: normal;
+}
+
+/* Header background color */
+#csv_table thead tr {
+    background-color: #e0e0e0;
+}
+
+/* Download button positioning and style */
+.download-btn-container {
+    position: absolute;
+    top: 725px;
+    left: 15px;
+}
+
+.download-btn-container button {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+/* Message when no CSV is found */
+.no-results-message {
+    position: absolute;
+    
+    
+    width: 400px;
+    padding: 15px;
+}
+
+
+@media (max-width: 1700px) {
+  #csv_table {
+      width: 65vw; /* 90% of viewport width */
+      margin-left: 0 !important;
+      margin-right: auto;
+  }
+
+  #csv_table table {
+      width: 100%; /* Make table take full width of its container */
+  }
+
+  #csv_table th,
+  #csv_table td {
+      width: auto; /* Allow automatic width distribution */
+      word-break: break-word;
+      white-space: normal;
+      text-align: left;
+      padding: 5px;
+  }
+}
+
+
+
+</style>
+
+
+
+<!-- Analysis -->
+<style>
+/* Container for the analysis section */
+#Analysis {
+    display: none;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Home button styling */
+.home-button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+/* Container for the top N table */
+#n_top_table {
+    margin-top: 25px;
+    margin-left: 0;
+    margin-right: auto; /* Align to the right */
+    max-width: 1600px;
+    max-height: 500px;
+    overflow: auto;
+    border: 2px solid black;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Sticky header title */
+#n_top_table h2 {
+    position: sticky;
+    top: 0;
+    background: #ffffff;
+    z-index: 3;
+    margin: 0;
+    padding: 10px;
+    border-bottom: 2px solid black;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+/* Table base styling */
+#n_top_table table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid black;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+/* Table headers and cells */
+#n_top_table th,
+#n_top_table td {
+    max-width: 300px;
+    word-wrap: break-word;
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 8px;
+    text-align: left;
+    background-color: #fff;
+}
+
+/* Sticky header cells */
+#n_top_table th {
+    position: sticky;
+    top: 50px;
+    background: #fff;
+    z-index: 2;
+}
+
+/* Download button below table */
+#n_top_table + div {
+    margin-top: 15px;
+}
+
+#n_top_table + div button {
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+@media (max-width: 1700px) {
+  /* Main table container styling */
+  #n_top_table {
+      width: 62.5vw; /* 62.5% of the viewport width */
+      margin-left: 0;
+      margin-right: auto; /* Align to the right */
+  }
+
+  /* Table styling */
+  #n_top_table table {
+      width: 100%; /* Make table take full width of its container */
+      table-layout: fixed; /* Ensures fixed column widths */
+  }
+
+  #n_top_table th,
+  #n_top_table td {
+      width: auto; /* Allow automatic width distribution */
+      word-break: break-word;
+      white-space: normal;
+      text-align: left;
+      padding: 8px;
+  }
+}
+
+</style>
+
+<!-- User Data -->
+
+<style>
+  /* User Data Section Styling */
+  #User\ Data {
+      display: none;
+      padding: 10px;
+      box-sizing: border-box;
+  }
+  
+  /* Home button inside User Data */
+  #User\ Data .home-button {
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-bottom: 20px;
+  }
+  
+  /* Header Styling */
+  #User\ Data h1 {
+      font-size: 24px;
+      margin-top: 10px;
+  }
+  
+  /* Table container */
+  #User\ Data .user-table-container {
+    position: relative;
+    margin-top: 20px;
+    margin-left: 0;       /* Align to the left */
+    margin-right: auto;   /* Pushes it away from the right */
+    width: 1000px;
+    max-height: 650px;
+    overflow-y: auto;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  /* Table styling */
+  #User\ Data table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+  }
+  
+  /* Table header styling */
+  #User\ Data th {
+      padding: 8px 12px;
+      border: 1px solid black;
+      text-align: center;
+      background-color: #f4f4f4;
+      font-weight: bold;
+  }
+  
+  /* Table cell styling */
+  #User\ Data td {
+      padding: 8px 12px;
+      border: 1px solid black;
+      text-align: center;
+      vertical-align: top;
+      word-wrap: break-word;
+      white-space: normal;
+  }
+  
+  /* No data message */
+  #User\ Data p {
+      text-align: center;
+      font-size: 1.2em;
+      color: #888;
+      margin-top: 20px;
+  }
+  
+  /* Responsive for large screens */
+  @media (max-width: 1700px) {
+      #User\ Data .user-table-container {
+          width: 65vw;
+          margin-left: 0;
+          margin-right: auto;
+      }
+
+      #User\ Data h1 {
+        font-size: 4vw;
+        margin-top: 10px;
+        text-align: left;  /* Align heading to the left */
+    }
+  }
+  
+
+</style> 
+
+<style>
+  .video-wrapper {
+    position: absolute;
+    top: 175px;
+    width: 70vw;            /* full width of container or screen */
+    max-width: 900px;       /* don't exceed this width */      
+    padding: 0;
+    
+    
+    margin-left: 150px;
+    margin-right: auto;
+    margin-top: 50px;
+    
+    
+  }
+
+  .video-wrapper video {
+    width: 100%;            /* scales with wrapper */
+    height: 100%;           /* maintain aspect ratio */
+    display: block;
+    margin-top: 0;
+    border: 2px solid black;
+    border-radius: 10px;
+    
+  }
+
+
+  @media (max-width: 1700px) {
+    .video-wrapper {
+        width: 65vw;
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+</style>
+
+
+
 </head>
 
 <body>
@@ -91,7 +1383,7 @@
       <a href="{% url 'home' %}">
         <img src="{% static 'img/favicon_qc.png' %}" class="logo" alt="Home">
       </a>
-      <h3 class="hide">QClair-AffPro</h3>
+      <h3 class="hide">QClair-PLI</h3>
     </div>
 
     <div class="search">
@@ -189,7 +1481,7 @@
           </a>
         </li>
 
-
+        
         <div class="tooltip">
           <span class="show">Predict</span>
           <span>QClair-PLI</span>
@@ -202,44 +1494,7 @@
           <span>User Data</span>
         </div>
       </ul>
-      <!--
-      <h4 class="hide">Shortcuts</h4>
-
-      <ul>
-        <li class="tooltip-element" data-tooltip="6">
-          <a href="#" data-active="6">
-            <div class="icon">
-              <i class='bx bx-notepad'></i>
-              <i class='bx bxs-notepad'></i>
-            </div>
-            <span class="link hide">Tasks</span>
-          </a>
-        </li>
-        <li class="tooltip-element" data-tooltip="7">
-          <a href="#" data-active="7">
-            <div class="icon">
-              <i class='bx bx-help-circle'></i>
-              <i class='bx bxs-help-circle'></i>
-            </div>
-            <span class="link hide">Help</span>
-          </a>
-        </li>
-        <li class="tooltip-element" data-tooltip="8">
-          <a href="#" data-active="8">
-            <div class="icon">
-              <i class='bx bx-cog'></i>
-              <i class='bx bxs-cog'></i>
-            </div>
-            <span class="link hide" onclick="location.href='{% url 'logout' %}'">Settings</span> 
-
-          </a>
-        </li>
-        <div class="tooltip">
-          <span class="show">Tasks</span>
-          <span>Help</span>
-          <span >Settings</span>
-        </div>
-      </ul> -->
+      
     </div>
 
     <div class="sidebar-footer">
@@ -261,32 +1516,30 @@
         </a>
         
       </div>
-      <div class="tooltip">
-        <span class="show">John Doe</span>
-        <span>Logout</span>
-      </div>
+      
     </div>
   </nav>
 
   <main>
     
     <div id="Predict" class="content" style="display:block;">
+      <img src="{% static 'video/gif_mol_2.gif' %}"   class="faded-gif-3">
+      <div class="stack-container">
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       <br>
-      <h1 style="padding-top: 15px;">Predict Ki(Inhibition Constant)</h1>
-      <p class="text">Give input as Ligand SMILES and PDB File/Protein Sequence.</p>
+      <h1 class="predict-title">Predict Ki (Inhibition Constant)</h1>
+      <p class="text-description">Give input as Ligand SMILES and PDB File/Protein Sequence.</p>
 
-      <div style="position: absolute; top: 165px; left: 285px; width: 500px; padding: 5px; border: 1px solid black; border-radius:8px; background-color: #f9f9f9; box-sizing: border-box;">
+      <div class="form_pl_1" >
       <!-- Form inside Projects Section -->
       <form id="projectForm" action="{% url 'process_form_pl' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <input type="hidden" name="form_type" value="project">
         <!-- Rest of the form fields -->
 
-        <div class="form-group" style="border: 1px solid black; padding: 15px; border-radius: 8px; width: 400px; background-color: #f9f9f9;">
-          <label for="input1_pl" style="font-weight: bold; display: block; margin-bottom: 5px;">Ligand SMILES*</label>
-          <input type="text" id="input1_pl" name="input1_pl" value="{{ input1 }}" placeholder="Enter SMILES e.g: CCC"      required
-                 style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;">
+        <div class="form-group">
+          <label for="input1_pl" >Ligand SMILES*</label>
+          <input type="text" id="input1_pl" name="input1_pl" value="{{ input1 }}" placeholder="Enter SMILES e.g: CCC"  required >
         </div>
         
 
@@ -294,13 +1547,12 @@
 
 
 
-        <div class="outer-container" style="border: 1px solid #000; padding: 15px; border-radius: 8px; width: 400px; background-color: #f9f9f9;">
+        <div class="outer-container">
 
           <!-- Protein Sequence Input -->
-          <div class="form-group" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; margin-bottom: 10px; background-color: #fff;">
+          <div class="form-group" >
               <label for="input2_pl" style="font-weight: bold;">Protein Sequence</label>
-              <textarea id="input2_pl" name="input2_pl" placeholder="Enter Protein Sequence e.g: AAAAA"  
-                        style="width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px;"> {{ input2 }} </textarea>
+              <textarea id="input2_pl" name="input2_pl" placeholder="Enter Protein Sequence e.g: AAAAA"  > {{ input2 }} </textarea>
           </div>
 
     
@@ -309,14 +1561,13 @@
 
 
           <!-- OR Section -->
-          <h4 style="text-align: center; margin: 10px 0;">OR</h4>
+          <h4 >OR</h4>
       
           <!-- Upload PDB File -->
            
-          <div class="form-group" style="border: 1px solid #ccc; padding: 10px; border-radius: 5px; background-color: #fff;">
-              <label for="input3_pl" style="font-weight: bold;">Upload PDB File</label>
-              <input type="file" id="input3_pl" name="input3_pl" accept=".pdb"
-                     style="width: 100%; padding: 5px; border: 1px solid #ccc; border-radius: 4px;">
+          <div class="form-group">
+              <label for="input3_pl">Upload PDB File</label>
+              <input type="file" id="input3_pl" name="input3_pl" accept=".pdb">
 
           </div>
     
@@ -407,93 +1658,62 @@
         </script>
       
     
-    
-
-
-
-
-
-
-
-
-
-       <!--
-
-        <button onclick="showLoading_2()" type="submit">Submit</button> 
-        
-        <div id="resultContainer" style="margin-top: 20px; padding: 10px; border: 1px solid black; border-radius: 5px;">
-          <h3 id="resultHeader">Result: {{result}}</h3>
-          <p id="resultText"></p>
-        </div>
-        -->
-        <div id="resultContainer" style="margin-top: 20px; padding: 15px; border: 2px solid black; border-radius: 5px; background-color: #f9f9f9; width: 400px; display: flex; align-items: center; gap: 10px;">
-          <h3 style="margin: 0; white-space: nowrap;">Result: Ki(nM)</h3>
-          <div id="resultBox" style="flex-grow: 1; padding: 10px; border: 1px solid black; background-color: #fff; border-radius: 4px; font-weight: bold; text-align: center;">
+  
+        <div id="resultContainer">
+          <h3 class="Result_predict" >Result: Ki(nM)</h3>
+          <div class="resultBox" id="resultBox">
               {{ result }}
           </div>
         </div>
       
         <button type="button" id="clearBtn">Clear</button>
+      
       </form>
+      
       </div>
 
 
       
 
-      <p class="text" style="position: absolute; top: 135px; right: 200px;">
-        <span style="font-weight: bold; font-size: 16px;">Batch Processing:</span> 
+      <p class="text_p" >
+        <span >Batch Processing:</span> 
         Give input as a CSV file which contains Ligand SMILES and Protein Sequence.</p>
     
 
-      <div style="position: absolute; top: 165px; right: 300px; width: 500px; padding: 5px; border: 1px solid black; background-color: #f9f9f9; box-sizing: border-box; border-radius:8px;">
-        
-        <form id="csv_form" action="{% url 'process_form_pl' %}" method="POST" enctype="multipart/form-data"
-              style="position: relative;  width: 400px; height: 95px; border: 1px solid black; border-radius:8px; padding: 20px; background-color:rgb(241, 238, 238);">
+      <div class="csv-form-container">
+      
+        <form id="csv_form" action="{% url 'process_form_pl' %}" method="POST" enctype="multipart/form-data">
           {% csrf_token %}
-          <input type="file" id="csvfile" name="csv_file" accept=".csv" style="margin-bottom: 5px; width: 100%;">
-          <button type="submit"  onclick="showLoading()" style="padding: 5px 5px; font-size: 14px;">Upload CSV</button>
+          <input type="file" id="csvfile" name="csv_file" accept=".csv">
+          <button type="submit" onclick="showLoading()" >Process CSV</button>
           <!-- Hidden field to distinguish the CSV form -->
           <input type="hidden" name="form_type" value="csv_form">
         </form>
 
       </div>  
       
-      <div style="position: absolute; top: 325px; right: 50px; width: 1000px; height:500px; padding: 5px;">
+      <div class="csv-table-container">
         
         {% if csv_data %}
-          <div id="csv_table" style="
-          position: relative;
-          width: 1000px; /* Fixed width in pixels */
-          height: 500px; /* Fixed height */
-          overflow-y: auto;
-          padding: 10px;
-          background-color: #f8f8f8;
-          border: 1px solid black;
-          border-radius: 8px;
-          box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-          ">
-            <table border="1" style="
-                width: 960px; /* Fixed width for table */
-                border-collapse: collapse;
-                table-layout: fixed; /* Ensures fixed column widths */
-              ">
+          <div id="csv_table">
+            <table border="1">
                 <thead>
                     <tr style="background-color: #e0e0e0;">
-                        <th style="width: 330px; text-align: left; padding: 5px;">Ligand (SMILES)</th>
-                        <th style="width: 330px; text-align: left; padding: 5px;">Protein Sequence</th>
-                        <th style="width: 330px; text-align: left; padding: 5px;">Predicted_Ki(nM)</th>
+                        <th >Ligand (SMILES)</th>
+                        <th >Protein Sequence</th>
+                        <th >Predicted_Ki(nM)</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for row in result_2 %}
                     <tr>
-                        <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.ligand }}</td>
-                        <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.protein }}</td>
-                        <td style="width: 330px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.prediction }}</td>
+                        <td >{{ row.ligand }}</td>
+                        <td >{{ row.protein }}</td>
+                        <td >{{ row.prediction }}</td>
                     </tr>
                     {% empty %}
                     <tr>
-                        <td colspan="3" style="text-align: center; padding: 10px;">No results found.</td>
+                        <td colspan="3">No results found.</td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -501,47 +1721,15 @@
           </div>
 
           <!-- Download CSV Button -->
-          <div style="position: absolute; top: 525px; right: 450px;">
-              <button type="button" onclick="downloadCSV_2()" style="padding: 8px 16px; font-size: 14px;">Download CSV</button>
+          <div class="csv-download-button">
+            <button type="button" onclick="downloadCSV_2()">Download CSV</button>
           </div>
 
         
 
         
 
-        <!--
-        <div id="csv_table" style="max-width: 900px; max-height: 500px; overflow: auto; border: 2px solid black; padding: 0; box-sizing: border-box; border-radius:8px;">
-          
-          <h2 style="position: sticky; top: 0; background: #fff; z-index: 3; margin: 0; padding: 10px; border-bottom: 2px solid black; box-sizing: border-box; width: 100%;">
-            CSV File Contents
-          </h2>
-          <table style="width: 100%; border-collapse: collapse; border: 2px solid black; box-sizing: border-box;">
-            {% for row in csv_data %}
-              {% if forloop.first %}
-                <thead>
-                  <tr>
-                    {% for cell in row %}
-                      <th style="max-width: 300px; word-wrap: break-word; position: sticky; top: 50px; background: #fff; z-index: 2; border: 1px solid black; box-sizing: border-box;">
-                        {{ cell }}
-                      </th>
-                    {% endfor %}
-                  </tr>
-                </thead>
-                <tbody>
-              {% else %}
-                <tr>
-                  {% for cell in row %}
-                    <td style="max-width: 300px; word-wrap: break-word; border: 1px solid black; box-sizing: border-box;">
-                      {{ cell }}
-                    </td>
-                  {% endfor %}
-                </tr>
-              {% endif %}
-            {% endfor %}
-                </tbody>
-          </table>
-        </div> -->
-        <!-- Download CSV Button using JavaScript -->
+        
         <script>
           // On page load, check if there's a saved value for both SMILES and Protein Sequence
           window.onload = function() {
@@ -629,11 +1817,11 @@
           
 
         {% else %}
-          <div id="csv_table" style="position: absolute; top: 25px; right: 170px; width: 400px; padding: 15px; ">
-            <p>Upload the CSV..</p>
-          </div>
+        <div class="csv-upload-message">
+          <p>Upload the CSV..</p>
+        </div>
         {% endif %}
-
+      </div>
       </div>
 
 
@@ -730,70 +1918,6 @@
   
 
     
-<!--
-    <script>
-      // Restore values from localStorage on page load
-      window.onload = function() {
-          const savedInput1 = localStorage.getItem('input1_pl');
-          const savedInput2 = localStorage.getItem('input2_pl');
-          const savedInput3 = localStorage.getItem('input3_pl');
-  
-          if (savedInput1) document.getElementById('input1_pl').value = savedInput1;
-          if (savedInput2) document.getElementById('input2_pl').value = savedInput2;
-          if (savedInput3) document.getElementById('input3_pl').value = savedInput3;
-      };
-  
-      // Validate SMILES and handle submission
-      async function validateAndSubmit() {
-          const input1 = document.getElementById("input1_pl").value.trim(); // SMILES
-          const input2 = document.getElementById("input2_pl").value.trim(); // Protein
-          const input3 = document.getElementById("input3_pl").value.trim(); // Additional input
-  
-          if (!input1) {
-              alert("Please enter a SMILES string.");
-              return;
-          }
-  
-          // Save values locally for future use
-          localStorage.setItem('input1_pl', input1);
-          localStorage.setItem('input2_pl', input2);
-          localStorage.setItem('input3_pl', input3);
-  
-          try {
-              const response = await fetch("{% url 'validate_smiles' %}", {
-                  method: 'POST',
-                  headers: {
-                      'Content-Type': 'application/json',
-                      'X-CSRFToken': '{{ csrf_token }}'
-                  },
-                  body: JSON.stringify({ smiles: input1 })
-              });
-  
-              const result = await response.json();
-  
-              if (!result.valid) {
-                  alert("Invalid SMILES string! Please check your input.");
-                  return;
-              }
-  
-              // If SMILES is valid, check the other fields
-              if ((input2 !== "") || (input3 !== "")) {
-                  document.getElementById("loadingSpinner_2").style.display = "block";
-                  document.getElementById("projectForm").submit();  // Submit the form
-              } else {
-                  alert("Please fill in at least one of Protein Sequence or Additional Input.");
-              }
-  
-          } catch (error) {
-              console.error("Validation error:", error);
-              alert("Could not validate SMILES. Please try again.");
-          }
-      }
-  </script>
-      
--->
-
-    
     
 
 
@@ -852,6 +1976,7 @@
             }
         });
       </script>
+      
 
     </div>
   
@@ -860,104 +1985,41 @@
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       </br>
       </br>
-      
-      <div style="
-        position: relative; 
-        background-image: url('{% static "img/PL_bg_1.jpeg" %}'); 
-        background-size: cover; 
-        background-position: center; 
-        background-repeat: no-repeat; 
-        height: 800px; 
-        display: flex; 
-        justify-content: center; 
-        align-items: top; 
-        text-align: left;
-        ">
-        <!-- Overlay for better text visibility -->
-        <div style="
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(223, 231, 231, 0.5); 
-            z-index: 1;
-            "></div>
 
-            <!-- Text content -->
-          <p style="
-              position: relative; 
-              z-index: 10; 
-              color: rgba(0, 0, 0, 0.7); 
-              font-size: 18px; 
-              font-weight: bold; 
-              margin: 0; 
-              padding: 20px; 
-              text-shadow: 1px 1px 5px rgba(229, 241, 241, 0.7);
-          ">
-          QClair-AffPro Affinity Predictor is an advanced computational model designed to evaluate the interaction strength between a protein and a ligand,
-          expressed as binding affinity, often quantified by inhibitory constants (Ki). Accurate prediction of binding affinity is a critical component in drug discovery.
-          </p>
+      <div class="PLI_image" >
+
+        <p class="PLI_text" >
+      
+            QClair-AffPro Affinity Predictor is an advanced computational model designed to evaluate the interaction strength between a protein and a ligand,
+            expressed as binding affinity, often quantified by inhibitory constants (Ki). Accurate prediction of binding affinity is a critical component in drug discovery.
+        </p>
+
+        <div class="video-wrapper">
+          <video controls>
+            <source src="{% static 'video/DTI.mp4' %}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </div>
 
-    <!--
+   
+
+
     <div id="Protein Structure Visualization" class="content" style="display:none;">
-      <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
-      </br>
-      </br>
-      <h1>Visualize Protein by inputing the PBD ID</h1>
-      <div style=" text-align: center;">
-        </br>
-        <h2>Protein Sequence Visualization</h2>
-        </br>
-        </br>
-        </br>
-    
-        <div style="height: 600px; width: 1000px; 
-            position: absolute; 
-            top: 60%; left: 55%; 
-            transform: translate(-50%, -50%);"
-            class='viewer_3Dmoljs' 
-            data-pdb="" 
-            data-backgroundcolor='0xffffff' 
-            data-style='ballstick'
-            data-ui='true'>
-        </div>
-      </div> 
+      <img src="{% static 'video/gif_p_4.gif' %}"   class="faded-gif-2">
       
-    </div> -->
-
-
-    <div id="Protein Structure Visualization" class="content" style="display:none;">
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       </br>
       </br>
-      <h1>Visualize Protein from Inputted PDB File </h1>
+      <h1 class="P_heading">Visualize Protein from Inputted PDB File </h1>
       <div style=" text-align: center;">
         </br>
         <!-- <h2>Protein Structure Visualization</h2> -->
         </br>
         </br>
         </br>
-        <!-- 
-        <div style="position: absolute; top: 150px; left: 550px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
-          <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB File</h4>
-          <input type="file"  id="input4_pl" name="input4_pl" accept=".pdb">
-          <button type="submit" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
-        </div>
-
-        -->
-        <!--
-        <form id="pbdform" action="{% url 'process_form_pl' %}" method="post" enctype="multipart/form-data" style="position: absolute; top: 150px; left: 550px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
-          {% csrf_token %}
-          <input type="hidden" name="form_type" value="pdb">
-          <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB File</h4>
-          <input type="file" id="input4_pl" name="input4_pl" accept=".pdb">
-          <button type="submit" id="loadBtn" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
-        </form>
-        -->
+        
 
         <script>
           document.getElementById("loadBtn").addEventListener("submit", function() {
@@ -998,10 +2060,10 @@
 
 
 
-        
+      <div class="stack-container-PV">
         
     
-        <div id="viewer-container" style="position: absolute; top: 250px; left: 300px;">
+        <div class="protein_structure_1" id="viewer-container">
           {{ pdb_visual|safe }}
         </div>
         <!--- 
@@ -1014,10 +2076,10 @@
             data-ui="true">
         </div>
         -->
-        <div style="position: absolute; top: 150px; right: 250px; padding: 10px; border: 1px solid #ccc; z-index: 100;">
-          <h4 style="margin: 0 0 10px 0;">Load a Protein Structure by PDB ID</h4>
-          <input type="text" id="pdbId" placeholder="Enter PDB ID (e.g., 1crn)" style="padding: 5px; font-size: 14px;" />
-          <button onclick="loadStructure()" style="padding: 5px 10px; font-size: 14px; margin-top: 10px;">Load Structure</button>
+        <div class="protein_structure_2">
+          <h4 >Load a Protein Structure by PDB ID</h4>
+          <input type="text" id="pdbId" placeholder="Enter PDB ID (e.g., 1crn)">
+          <button onclick="loadStructure()">Load Structure</button>
         </div>
         <div id="viewport"></div>
         
@@ -1051,6 +2113,7 @@
               });
           }
         </script>
+      </div>
       </div> 
       
     </div> 
@@ -1070,23 +2133,27 @@
 
 
     <div id="Ligand Struture Visualization" class="content" style="display:none;">
+      <img src="{% static 'video/gif_mol_1.gif' %}"   class="faded-gif-4">
+      
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       </br>
       </br>
-      <h1>Visualize Ligand</h1>
-      <p>Visualization of Ligand 2D and 3D structure.</p>
+      <div class="L_visualization-header">
+        <h1>Visualize Ligand</h1>
+        <p>Visualization of Ligand 2D and 3D structure.</p>
+      </div>
           <br>
           
           <!-- Third Div: Protein Sequence Visualization -->
-          <div style="display: flex; justify-content: center; gap: 5px; align-items: center;">
+          <div class="L_visualization-container">
             <!-- First Div: SMILES 2D Visualization -->
-            <div style="flex: 2.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; width: 400px; height: 600px; border: 1px solid black;padding: 10px; border-radius: 5px;">
+            <div class="L_visualization-box">
                 <h2 style="margin: 0;">SMILES 2D Visualization:</h2>
                 <br>
                 {{ smiles_visualization|safe }}
             </div>
             <!-- Second Div: SMILES 3D Visualization -->
-            <div style="flex: 2.5; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; width: 400px; height: 600px; border: 1px solid black;padding: 10px; border-radius: 5px;">
+            <div class="L_visualization-box">
                 <h2 style="margin: 0;">SMILES 3D Visualization:</h2>
                 <br>
                 {{ smiles_3D_visualization|safe }}
@@ -1106,7 +2173,7 @@
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       </br>
       </br>
-      <h1>PDB File Content:</h1>
+      <h1 class="content_pdb">PDB File Content:</h1>
       <div id="pdb_table_container">
           <!-- Use the safe filter to render the HTML table -->
           {{ pdb_read|safe }}
@@ -1119,43 +2186,29 @@
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       <br>
 
-    <div style="position: absolute; top: 75px; left: 260px; width: 1000px; height:700px; padding: 5px;">
+    <div class="batch-container">
         
       {% if csv_data %}
 
-        <div id="csv_table" style="
-        position: relative;
-        width: 1500px; /* Fixed width in pixels */
-        height: 700px; /* Fixed height */
-        overflow-y: auto;
-        padding: 10px;
-        background-color: #f8f8f8;
-        border: 1px solid black;
-        border-radius: 8px;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-        ">
-        <table border="1" style="
-            width: 960px; /* Fixed width for table */
-            border-collapse: collapse;
-            table-layout: fixed; /* Ensures fixed column widths */
-          ">
+        <div id="csv_table">
+        <table border="1">
             <thead>
-                <tr style="background-color: #e0e0e0;">
-                    <th style="width: 490px; text-align: left; padding: 5px;">Ligand (SMILES)</th>
-                    <th style="width: 490px; text-align: left; padding: 5px;">Protein Sequence</th>
-                    <th style="width: 490px; text-align: left; padding: 5px;">Predicted_Ki(nM)</th>
+                <tr >
+                    <th>Ligand (SMILES)</th>
+                    <th>Protein Sequence</th>
+                    <th>Predicted_Ki(nM)</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in result_2 %}
                 <tr>
-                    <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.ligand }}</td>
-                    <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.protein }}</td>
-                    <td style="width: 490px; word-break: break-word; white-space: normal; text-align: left; padding: 5px;">{{ row.prediction }}</td>
+                    <td>{{ row.ligand }}</td>
+                    <td>{{ row.protein }}</td>
+                    <td>{{ row.prediction }}</td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="3" style="text-align: center; padding: 10px;">No results found.</td>
+                    <td colspan="3">No results found.</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -1163,8 +2216,8 @@
       </div>
   
         <!-- Download CSV Button -->
-        <div style="position: absolute; top: 725px; left: 15px;">
-            <button type="button" onclick="downloadCSV()" style="padding: 8px 16px; font-size: 14px;">Download CSV</button>
+        <div class="download-btn-container" >
+            <button  type="button" onclick="downloadCSV()" style="padding: 8px 16px; font-size: 14px;">Download CSV</button>
         </div>
 
         
@@ -1225,7 +2278,7 @@
         
 
       {% else %}
-        <div style="position: absolute; top: 25px; right: 125px; width: 400px; padding: 15px; ">
+        <div class="no-results-message" >
           <p>Upload the CSV..</p>
         </div>
       {% endif %}
@@ -1239,30 +2292,30 @@
       <h1>User Interaction Results</h1>
     
       {% if data_pl %}
-      <div style="position: absolute; margin-top: 20px; margin-left: 275px; width: 1000px; max-height: 650px; overflow-y: auto; border: 1px solid black;">
-          <table style="width: 100%; border-collapse: collapse; table-layout: fixed;">
+      <div class="user-table-container">
+          <table>
               <thead>
                   <tr>
-                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Input 1</th>
-                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Input 2</th>
-                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Ki(nM)</th>
-                      <th style="padding: 8px 12px; border: 1px solid black; text-align: center; background-color: #f4f4f4;">Timestamp</th>
+                      <th>Input 1</th>
+                      <th >Input 2</th>
+                      <th >Ki(nM)</th>
+                      <th>Timestamp</th>
                   </tr>
               </thead>
               <tbody>
                   {% for entry in data_pl %}
                       <tr>
-                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.input1_user }}</td>
-                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.input2_user }}</td>
-                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.result_user }}</td>
-                          <td style="padding: 8px 12px; border: 1px solid black; text-align: center; vertical-align: top; word-wrap: break-word; white-space: normal;">{{ entry.timestamp_user }}</td>
+                          <td>{{ entry.input1_user }}</td>
+                          <td>{{ entry.input2_user }}</td>
+                          <td>{{ entry.result_user }}</td>
+                          <td>{{ entry.timestamp_user }}</td>
                       </tr>
                   {% endfor %}
               </tbody>
           </table>
       </div>
       {% else %}
-          <p style="text-align: center; font-size: 1.2em; color: #888;">No interaction results found.</p>
+          <p>No interaction results found.</p>
       {% endif %}
 
     </div>
@@ -1278,26 +2331,26 @@
       <br>
   
       {% if top_n %}
-        <div id="n_top_table" style="margin-top: 50px; max-width: 1600px; max-height: 500px; overflow: auto; border: 2px solid black; padding: 0; box-sizing: border-box;">
+        <div id="n_top_table">
           <!-- Sticky heading -->
-          <h2 style="position: sticky; top: 0; background: #fff; z-index: 3; margin: 0; padding: 10px; border-bottom: 2px solid black; box-sizing: border-box;">
+          <h2 >
               Top 3 Minimum Predicted Ki(nM):
           </h2>
           
-          <table style="width: 100%; border-collapse: collapse; border: 2px solid black; box-sizing: border-box;">
+          <table >
               <thead>
                   <tr>
-                      <th style="max-width: 300px; word-wrap: break-word; position: sticky; top: 50px; background: #fff; z-index: 2; border: 1px solid black; box-sizing: border-box; padding: 8px; text-align: left;">SMILES</th>
-                      <th style="max-width: 300px; word-wrap: break-word; position: sticky; top: 50px; background: #fff; z-index: 2; border: 1px solid black; box-sizing: border-box; padding: 8px; text-align: left;">Protein Sequences</th>
-                      <th style="max-width: 300px; word-wrap: break-word; position: sticky; top: 50px; background: #fff; z-index: 2; border: 1px solid black; box-sizing: border-box; padding: 8px; text-align: left;">Predicted Ki(nM)</th>
+                      <th>SMILES</th>
+                      <th>Protein Sequences</th>
+                      <th>Predicted Ki(nM)</th>
                   </tr>
               </thead>
               <tbody>
                   {% for row in top_n %}
                       <tr>
-                          <td style="max-width: 300px; word-wrap: break-word; border: 1px solid black; box-sizing: border-box; padding: 8px; text-align: left;">{{ row.ligand }}</td>
-                          <td style="max-width: 300px; word-wrap: break-word; border: 1px solid black; box-sizing: border-box; padding: 8px; text-align: left;">{{ row.protein }}</td>
-                          <td style="max-width: 300px; word-wrap: break-word; border: 1px solid black; box-sizing: border-box; padding: 8px; text-align: left;">{{ row.prediction }}</td>
+                          <td>{{ row.ligand }}</td>
+                          <td>{{ row.protein }}</td>
+                          <td>{{ row.prediction }}</td>
                       </tr>
                   {% endfor %}
               </tbody>
@@ -1307,8 +2360,8 @@
           
   
           <!-- Download CSV Button -->
-          <div style="margin-top: 15px;">
-              <button type="button" onclick="downloadNTopCSV_2()" style="padding: 8px 16px; font-size: 14px;">Download</button>
+          <div >
+              <button type="button" onclick="downloadNTopCSV_2()" >Download</button>
           </div>
 
           <script>
@@ -1358,27 +2411,29 @@
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       </br>
       </br>
+      <div class="Mol_P">
       <h1>Molecular Properties</h1>
       <p class="text">The features of the Ligand and Protein, derived from the user's input, are displayed below.</p>
+      </div>
       </br>
-          <div style="display: flex; justify-content: space-between; gap: 20px;">
+          <div  class="descriptor-container">
             <!-- First Flex Container for Ligand Descriptors Table -->
             
-            <div style="flex: 1;">
-                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Ligand Molecule: {{input1}}</h2>
+            <div class="descriptor-box">
+                <h2 class="descriptor-heading">Ligand Molecule: {{input1}}</h2>
                 </br>
-                <table border="1" style="width: 100%; border-collapse: collapse;">
+                <table class="descriptor-table">
                     <thead>
                         <tr>
-                            <th style="border: 1px solid black; text-align: center;">Ligand Descriptor</th>
-                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                            <th>Ligand Descriptor</th>
+                            <th>Value</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for name, value in descriptors.items %}
                             <tr>
-                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
-                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                                <td>{{ name }}</td>
+                                <td>{{ value }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -1386,21 +2441,21 @@
             </div>
         
             <!-- Second Flex Container for Protein Properties Table -->
-            <div style="flex: 1;">
-                <h2 style="text-align: center; max-width: 500px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin: auto;">Protein Sequence: {{input2}}</h2>
+            <div class="descriptor-box">
+                <h2 class="descriptor-heading">Protein Sequence: {{input2}}</h2>
                 </br>
-                <table border="1" style="width: 100%; border-collapse: collapse;">
+                <table border="1" class="descriptor-table">
                     <thead>
                         <tr>
-                            <th style="border: 1px solid black; text-align: center;">Protein Properties</th>
-                            <th style="border: 1px solid black; text-align: center;">Value</th>
+                            <th>Protein Properties</th>
+                            <th>Value</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for name, value in protein_descriptors.items %}
                             <tr>
-                                <td style="border: 1px solid black; text-align: center;">{{ name }}</td>
-                                <td style="border: 1px solid black; text-align: center;">{{ value }}</td>
+                                <td>{{ name }}</td>
+                                <td>{{ value }}</td>
                             </tr>
                         {% endfor %}
                     </tbody>
@@ -1409,11 +2464,15 @@
           </div>
     </div>
 
-    
+    <br>
+    <br>
+    <br>
+    <br>
 
+    
     <p class="copyright">
       &copy; 2025 - <span>QClairvoyance Quantum Labs Pvt. Ltd</span> All Rights Reserved.
-    </p>
+    </p>  
   </main>
 
 

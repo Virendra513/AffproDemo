@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="{% static 'img/favicon_qc.png' %}" rel="icon">
-  <title>Sidebar Menu</title>
+  <title>QClair-PPI</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -58,6 +58,61 @@
   }
 </style>
 
+<style>
+.faded-gif-5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.3;        /* Controls how faded the gif is */
+  z-index: -1;         /* Sends it behind all content in .services */
+  pointer-events: none; /* Prevents gif from blocking interactions */
+}
+</style>
+
+
+<style>
+  .video-wrapper {
+    position: absolute;
+    top: 200px;
+    width: 80vw;            /* full width of container or screen */
+    max-width: 900px;       /* don't exceed this width */      
+    padding: 0;
+    width: 80vw;
+    
+    
+    
+    margin-left: 150px;
+    margin-right: auto;
+    margin-top: 50px;
+    z-index: 500;
+    
+    
+  }
+
+  .video-wrapper video {
+    width: 100%;            /* scales with wrapper */
+    height: 100%;           /* maintain aspect ratio */
+    display: block;
+    margin-top: 0;
+    border: 2px solid black;
+    border-radius: 10px;
+
+    
+    
+  }
+
+
+  @media (max-width: 1700px) {
+    .video-wrapper {
+        width: 65vw;
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+</style>
 
 </head>
 
@@ -110,12 +165,12 @@
         </li>
         
         <li class="tooltip-element" data-tooltip="3">
-          <a href="#" data-active="3" onclick="showContent('Molecular Properties')">
+          <a href="#" data-active="3" onclick="showContent('Protein Properties')">
             <div class="icon">
               <i class='bx bxs-bar-chart-alt-2'></i>
               <i class='bx bxs-bar-chart-alt-2'></i>
             </div>
-            <span class="link hide">Molecular Properties</span>
+            <span class="link hide">Protein Properties</span>
           </a>
         </li>
 
@@ -168,7 +223,7 @@
           <span class="show">Predict</span>
           <span>QClair-PPI</span>
           <span>Protein Structure Visualization</span>
-          <span>Molecular Properties</span>
+          <span>Protein Properties</span>
           <span>PDB-1 Content</span>
           <span>PDB-2 Content</span>
           <span>Batch Results</span>
@@ -206,6 +261,7 @@
   <main>
     
     <div id="Predict" class="content" style="display:block;">
+      <img src="{% static 'video/gif_p_5.gif' %}"   class="faded-gif-5">
       <br>
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       <h1 style="margin-top: 10px;">Predict</h1>
@@ -293,7 +349,7 @@
               style="position: relative;  width: 400px; height: 95px; border: 1px solid black; border-radius:8px; padding: 20px; background-color:rgb(241, 238, 238);">
           {% csrf_token %}
           <input type="file" id="csvfile_pp" name="csv_file_pp" accept=".csv" style="margin-bottom: 5px; width: 100%;">
-          <button type="submit"  onclick="showLoading()" style="padding: 5px 5px; font-size: 14px;">Upload CSV</button>
+          <button type="submit"  onclick="showLoading()" style="padding: 5px 5px; font-size: 14px;">Process CSV</button>
           <!-- Hidden field to distinguish the CSV form -->
           <input type="hidden" name="form_type" value="csv_form">
         </form>
@@ -535,9 +591,11 @@
   
 
   <div id="QClair-PPI" class="content" style="display:none;">
+
     <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
     </br>
     </br>
+    
     <div style="
     position: relative; 
     background-image: url('{% static "img/PP_bg.jpeg" %}'); 
@@ -571,12 +629,22 @@
         margin: 0; 
         padding: 20px; 
         text-shadow: 1px 1px 5px rgba(229, 241, 241, 0.7);
+        text-align: justify; /* Justifies the text */
     ">
-    QClair-ProteinPro Predictor is designed to forecast the interactions between two proteins. These interactions are fundamental to many biological processes,
+    QClair-PPI is designed to forecast the interactions between two proteins. These interactions are fundamental to many biological processes,
     including cellular signaling, immune responses, and enzymatic regulation. Understanding and predicting PPIs can provide insights into cellular mechanisms,
     disease pathways, and therapeutic targets.
     </p>
+    
   </div>
+  <div class="video-wrapper">
+    <video controls>
+      <source src="{% static 'video/PPI_v.mp4' %}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+  
+    
   </div>
 
   <div id="Batch Results" class="content" style="display:none;" >
@@ -1024,11 +1092,11 @@
 
 
 
-    <div id="Molecular Properties" class="content" style="display:none;">
+    <div id="Protein Properties" class="content" style="display:none;">
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       </br>
       </br>
-      <h1>Molecular Properties</h1>
+      <h1>Protein Properties</h1>
       <p class="text">The features of the Protein Sequence-1 and Protein Sequence-2, derived from the user's input, are displayed below.</p>
       </br>
           <div style="display: flex; justify-content: space-between; gap: 20px;">

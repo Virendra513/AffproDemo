@@ -72,9 +72,9 @@
       </div>
     </div><!-- End Top Bar -->
 
-    <div class="branding d-flex align-items-center">
+    <div class="branding d-flex align-items-center gradient-background">
 
-      <div class="container position-relative d-flex align-items-center justify-content-between">
+      <div class="container position-relative d-flex align-items-center justify-content-between ">
         
         <a href="{% url 'home' %}" class="logo d-flex align-items-center me-auto">
           <img src="{% static '\img\favicon_qc.png' %}" alt="" style="width: 75px; height: 100px; position: relative; left: -5px; ">
@@ -86,7 +86,10 @@
         <nav id="navmenu" class="navmenu">
           <ul>
             <li><a href="#hero" class="active">Home<br></a></li>
+            <li><a href="#services">Services</a></li>
+            <!--
             <li><a href="#about">About</a></li>
+            -->
             <!--
             <li><a href="#services">Protein-Ligand Interacrtion</a></li>
             <li><a href="#departments">Protein-Protein Interaction</a></li>
@@ -98,10 +101,10 @@
             <li><a href='/dd-Interaction'>Drug-Drug INteraction</a></li>
             -->
 
-            <li><a href='/index-sidebar-pl'>Protein-Ligand Interacrtion</a></li>
-            <li><a href='/index-sidebar-pp'>Protein-Protein Interaction</a></li>
-            <li><a href='/index-sidebar-dd'>Drug-Drug INteraction</a></li>
-            <li><a href='https://qclairvoyance.com/'>NP Database</a></li>
+            <li><a href='/index-sidebar-pl' target="_blank" rel="noopener noreferrer">Protein-Ligand Interacrtion</a></li>
+            <li><a href='/index-sidebar-pp' target="_blank" rel="noopener noreferrer" >Protein-Protein Interaction</a></li>
+            <li><a href='/index-sidebar-dd' target="_blank" rel="noopener noreferrer" >Drug-Drug INteraction</a></li>
+            <li><a href='https://qclairvoyance.com/' target="_blank" rel="noopener noreferrer" >NP Database</a></li>
                    
             <!--
             <li><a href="#departments">Protein-Protein Interaction</a></li>
@@ -111,17 +114,17 @@
               <ul>
                 <li class="dropdown"><a href="#"><span>Visualize</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                   <ul>
-                    <li><a href="/index-mol-str">Molecule Structure</a></li>
-                    <li><a href="/index-prot-str">Protein Structure</a></li>
+                    <li><a href="/index-mol-str" target="_blank" rel="noopener noreferrer">Molecule Structure</a></li>
+                    <li><a href="/index-prot-str" target="_blank" rel="noopener noreferrer">Protein Structure</a></li>
                   </ul>
                 </li>
                 <li class="dropdown"><a href="#"><span>Calculate Descriptor</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
                   <ul>
-                    <li><a href="/index-li-desc">Liagnd Descriptor</a></li>
-                    <li><a href="/index-pro-desc">Protein Descriptor</a></li>
+                    <li><a href="/index-li-desc" target="_blank" rel="noopener noreferrer">Liagnd Descriptor</a></li>
+                    <li><a href="/index-pro-desc" target="_blank" rel="noopener noreferrer">Protein Descriptor</a></li>
                   </ul>
                 </li>
-                <li><a href="/index-pdb-read"> Analyze PDB</a></li>
+                <li><a href="/index-pdb-read" target="_blank" rel="noopener noreferrer"> Analyze PDB</a></li>
                 <li><a href="#">Links</a></li>
               </ul>
             </li>
@@ -130,7 +133,7 @@
           <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
-        <a class="cta-btn d-none d-sm-block" href="#contact"> Conatct for a demo</a>
+        <a class="cta-btn d-none d-sm-block" href="#contact"> Request demo</a>
 
       </div>
 
@@ -139,16 +142,16 @@
   </header>
 
   <main class="main">
-
+    
     <!-- Hero Section -->
     <section id="hero" class="hero section light-background">
-
-      <img  src="{% static 'img/DD_bg.jpeg' %}" alt="" data-aos="fade-in" >
-
+        <img src="{% static 'video/gif_9_2.gif' %}" alt="Animated background" data-aos="fade-in"  class="faded-gif">
       <div class="container position-relative">
         <div class="welcome position-relative" data-aos="fade-down" data-aos-delay="100">
-          <h1 style="text-align: center;">WELCOME TO QClair In-Silico</h1>
-          <p style="text-align: center;">Commited to make Drug discovery Faster</p>
+            
+          <h1 style="text-align: center; color:white;">WELCOME TO QClair In-Silico</h1>
+          <p style="text-align: center; color:white;">Commited to make Drug discovery Faster</p>
+
         </div><!-- End Welcome -->
 
         <div class="content row gy-4">
@@ -192,22 +195,27 @@
                     <p style="text-align: justify;" >Protein-protein interactions are essential for cellular processes like signaling and metabolism. Dysregulated PPIs are linked to diseases, making them key therapeutic targets. Experimental methods and computational modeling aid in understanding their strength, specificity, and dynamics, driving the development of innovative treatments, including PPI inhibitors.</p>
                   </div>
                 </div><!-- End Icon Box -->
-
+              
               </div>
             </div>
           </div>
         </div><!-- End  Content-->
 
       </div>
-
+      
     </section><!-- /Hero Section -->
 
     <!-- About Section -->
-    <section id="about" class="about section">
+     <!--
+    <section id="about" class="about section gradient-background">
+      
+      
+  
 
-      <div class="container">
+      <div class="container position-relative">
+        
 
-        <div class="row gy-4 gx-5">
+        <div class="row gy-4 gx-5  ">
 
           <div class="col-lg-6 position-relative align-self-start" data-aos="fade-up" data-aos-delay="200">
             <img src="{% static 'img/about_2.png' %}" class="img-fluid" alt="">
@@ -249,14 +257,19 @@
 
     </section><!-- /About Section -->
 
+   
+
 
     <!-- Services Section -->
-    <section id="services" class="services section">
+    <section id="services" class="services section gradient-background-2">
+      <img src="{% static 'video/gif_11.gif' %}" alt="Animated background_2"  class="faded-gif-2">
+   
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
-        <h2>Services</h2>
-        <h3>QClair In-Silico Platform </h3>
+        <br>
+        <h2 style="color:rgb(210, 227, 255);">Services</h2>
+        <h3 style="color:rgb(210, 227, 255);">QClair In-Silico Platform</h3>
       </div><!-- End Section Title -->
 
       <div class="container">
@@ -268,7 +281,7 @@
               <div class="icon">
                 <i class="fas fa-heartbeat"></i>
               </div>
-              <a href="#" class="stretched-link">
+              <a href="/index-sidebar-pl" class="stretched-link" target="_blank" rel="noopener noreferrer">
                 <h3>Ligand- Protein Affinity Predictor</h3>
               </a>
               <p>Provides affinity value for the Protein-Ligand pairs .</p>
@@ -280,7 +293,7 @@
               <div class="icon">
                 <i class="fas fa-pills"></i>
               </div>
-              <a href="#" class="stretched-link">
+              <a href="/index-sidebar-pp" class="stretched-link" target="_blank" rel="noopener noreferrer">
                 <h3>Protein-Protein Interaction Predictor</h3>
               </a>
               <p>Predicts interaction between two protein pairs.</p>
@@ -292,7 +305,7 @@
               <div class="icon">
                 <i class="fas fa-hospital-user"></i>
               </div>
-              <a href="#" class="stretched-link">
+              <a href="/index-sidebar-dd" class="stretched-link" target="_blank" rel="noopener noreferrer">
                 <h3>Drug-Drug Interaction Predictor</h3>
               </a>
               <p>It classifies if two drug will interact or not.</p>
@@ -304,11 +317,11 @@
               <div class="icon">
                 <i class="fas fa-dna"></i>
               </div>
-              <a href="#" class="stretched-link">
-                <h3>Molecule and Ligand Descriptors information</h3>
+              <a href="/index-li-desc" class="stretched-link" target="_blank" rel="noopener noreferrer">
+                <h3>Molecule  Descriptors information</h3>
               </a>
-              <p>QClair In-Silico provides moecluar features of molecules and Protei.</p>
-              <a href="#" class="stretched-link"></a>
+              <p>QClair In-Silico provides moecluar features of molecules and Protein.</p>
+              <a href="/index-li-desc" class="stretched-link" target="_blank" rel="noopener noreferrer"></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -317,11 +330,11 @@
               <div class="icon">
                 <i class="fas fa-wheelchair"></i>
               </div>
-              <a href="#" class="stretched-link">
+              <a href="/index-prot-str" class="stretched-link" target="_blank" rel="noopener noreferrer">
                 <h3>Protein Structure visualization</h3>
               </a>
               <p>3D sturture of protein can be visualize only using PDBID.</p>
-              <a href="#" class="stretched-link"></a>
+              <a href="/index-prot-str" class="stretched-link" target="_blank" rel="noopener noreferrer"></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -330,11 +343,11 @@
               <div class="icon">
                 <i class="fas fa-notes-medical"></i>
               </div>
-              <a href="#" class="stretched-link">
+              <a href="/index-mol-str" class="stretched-link" target="_blank" rel="noopener noreferrer">
                 <h3>Drug Molecule Visualization</h3>
               </a>
               <p>Using SMILES of any drug moelcule it has capabilites to show 2D and 3D structure.</p>
-              <a href="#" class="stretched-link"></a>
+              <a href="/index-mol-str" class="stretched-link" target="_blank" rel="noopener noreferrer"></a>
             </div>
           </div><!-- End Service Item -->
 
@@ -347,12 +360,15 @@
     
 
     <!-- Gallery Section -->
-    <section id="gallery" class="gallery section">
+    <section id="gallery" class="gallery section gradient-background">
+      <img src="{% static 'video/gif_mol_3.gif' %}" alt="Animated background_2"  class="faded-gif-3">
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Gallery</h2>
+        <!--
         <p>Necessitatibus eius consequatur ex aliquid fuga eum quidem sint consectetur velit</p>
+        -->
       </div><!-- End Section Title -->
 
       <div class="container-fluid" data-aos="fade-up" data-aos-delay="100">
@@ -430,7 +446,8 @@
     </section><!-- /Gallery Section -->
 
     <!-- Contact Section -->
-    <section id="contact" class="contact section">
+    <section id="contact" class="contact section gradient-background-2">
+
 
       <!-- Section Title -->
       <div class="container section-title" data-aos="fade-up">
@@ -513,7 +530,7 @@
 
   </main>
 
-  <footer id="footer" class="footer light-background">
+  <footer id="footer" class="footer gradient-background">
 
     <div class="container footer-top">
       <div class="row gy-4">

@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sidebar Menu</title>
+  <title>QClair-DDI</title>
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
 
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
@@ -16,6 +16,60 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/3Dmol/2.0.6/3Dmol-min.js"></script>
 <script src="https://3Dmol.org/build/3Dmol-min.js"></script>      
 <script src="https://3Dmol.org/build/3Dmol.ui-min.js"></script> 
+
+<style>
+  .faded-gif-7 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;        /* Controls how faded the gif is */
+    z-index: -1;         /* Sends it behind all content in .services */
+    pointer-events: none; /* Prevents gif from blocking interactions */
+  }
+</style>
+
+<style>
+  .video-wrapper {
+    position: absolute;
+    top: 200px;
+    width: 70vw;            /* full width of container or screen */
+    max-width: 900px;       /* don't exceed this width */      
+    padding: 0;
+    
+    
+    margin-left: 150px;
+    margin-right: auto;
+    margin-top: 50px;
+    z-index: 500;
+    
+    
+  }
+
+  .video-wrapper video {
+    width: 100%;            /* scales with wrapper */
+    height: 100%;           /* maintain aspect ratio */
+    display: block;
+    margin-top: 0;
+    border: 2px solid black;
+    border-radius: 10px;
+
+    
+    
+  }
+
+
+  @media (max-width: 1700px) {
+    .video-wrapper {
+        width: 65vw;
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+</style>
+
 </head>
 
 <body>
@@ -155,6 +209,7 @@
   <main>
     
     <div id="Predict" class="content" style="display:block;">
+      <img src="{% static 'video/gif_mol_4.gif' %}"   class="faded-gif-7">
       <button class="home-button" onclick="location.href='{% url 'home' %}'">Home</button>
       </br>
       </br>
@@ -244,7 +299,7 @@
             style="position: relative;  width: 400px; height: 95px; border: 1px solid black; border-radius:8px; padding: 20px; background-color:rgb(241, 238, 238);">
         {% csrf_token %}
         <input type="file" id="csvfile_dd" name="csv_file_dd" accept=".csv" style="margin-bottom: 5px; width: 100%;">
-        <button type="submit"  onclick="showLoading()" style="padding: 5px 5px; font-size: 14px;">Upload CSV</button>
+        <button type="submit"  onclick="showLoading()" style="padding: 5px 5px; font-size: 14px;">Process CSV</button>
         <!-- Hidden field to distinguish the CSV form -->
         <input type="hidden" name="form_type" value="csv_form">
       </form>
@@ -547,14 +602,21 @@
         margin: 0; 
         padding: 20px; 
         text-shadow: 1px 1px 5px rgba(229, 241, 241, 0.7);
+        text-align: justify; /* Justifies the text */
     ">
-    QClair-DrugPro Affinity Predictor designed to forecast potential interactions between two 
+    QClair-DDI  designed to forecast potential interactions between two 
     or more drugs. By analyzing drug properties, metabolic pathways, and pharmacological data, 
     these predictors identify how one drug may alter the effectiveness or safety of another. 
     Utilizing techniques like machine learning and molecular modeling, DDI predictors enhance 
     drug development and clinical decision-making by helping to prevent adverse reactions, 
     optimize drug combinations, and ensure safer, more effective therapies.
     </p>
+  </div>
+  <div class="video-wrapper">
+    <video controls>
+      <source src="{% static 'video/DDI_v.mp4' %}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
   </div>
   </div>
 
